@@ -37,8 +37,7 @@ function render(now) {
 // find the front element under the mouse pointer and assign it to be moved
 function onMouseDown(mouseEvent) {
     for (let i = elements.length - 1; i >= 0; i--) {
-        if (mouseEvent.x > elements[i].x && mouseEvent.x < elements[i].x + elements[i].width &&
-            mouseEvent.y > elements[i].y && mouseEvent.y < elements[i].y + elements[i].height) {
+        if (elements[i].moveable === true && elements[i].containsPoint(mouseEvent)) {
             // assign the element as the element to be moved
             movingElement = elements[i];
 

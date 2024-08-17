@@ -8,6 +8,8 @@ export class Element {
     width = 0;
     height = 0;
 
+    moveable = true;
+
     constructor(name, x, y, width, height) {
         this.type = "Element";
         this.name = name;
@@ -53,5 +55,10 @@ export class Element {
         ctx.stroke();
 
         ctx.restore();
+    }
+
+    // return true if this Element contains the given point, false otherwise
+    containsPoint(point) {
+        return point.x > this.x && point.x < this.x + this.width && point.y > this.y && point.y < this.y + this.height;
     }
 }
