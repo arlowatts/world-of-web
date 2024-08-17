@@ -2,7 +2,7 @@ export class Element {
     static elements = [];
     static movingElement = null;
 
-    type = "";
+    type = "Element";
     name = "";
 
     x = 0;
@@ -16,10 +16,9 @@ export class Element {
     inputs = [];
     outputs = [];
 
-    constructor(type, name, x, y, width, height, moveable) {
+    constructor(name, x, y, width, height, moveable) {
         Element.elements.push(this);
 
-        this.type = type;
         this.name = name;
         this.x = x;
         this.y = y;

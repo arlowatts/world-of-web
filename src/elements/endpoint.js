@@ -9,7 +9,8 @@ export class Endpoint extends Element {
     route = null;
 
     constructor(name, offsetX, offsetY, parentElement) {
-        super("Endpoint", name, parentElement.x + offsetX, parentElement.y + offsetY, ENDPOINT_WIDTH, ENDPOINT_HEIGHT, false);
+        super(name, parentElement.x + offsetX, parentElement.y + offsetY, ENDPOINT_WIDTH, ENDPOINT_HEIGHT, false);
+        this.type += ".Endpoint";
     }
 
     mouseDown(point) {

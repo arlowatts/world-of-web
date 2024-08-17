@@ -5,6 +5,7 @@ const SERVER_HEIGHT = 100;
 
 export class Server extends Element {
     constructor(name, x, y) {
-        super("Server", name, x, y, SERVER_WIDTH, SERVER_HEIGHT, true);
+        super(name, x, y, SERVER_WIDTH, SERVER_HEIGHT, true);
+        this.type += ".Server";
     }
 }

@@ -5,7 +5,9 @@ const HANDLE_HEIGHT = 20;
 
 export class Handle extends Element {
     constructor(name, x, y) {
-        super("Handle", name, x, y, HANDLE_WIDTH, HANDLE_HEIGHT, true);
+        super(name, x, y, HANDLE_WIDTH, HANDLE_HEIGHT, true);
+        this.type += ".Handle";
+
         Element.movingElement = this;
     }
 

@@ -3,7 +3,7 @@ import { Endpoint } from "./endpoint.js";
 export class Input extends Endpoint {
     constructor(name, offsetX, offsetY, parentElement) {
         super(name, offsetX, offsetY, parentElement);
-        this.type = "Input";
+        this.type += ".Input";
     }
 
     draw(ctx, Styles) {

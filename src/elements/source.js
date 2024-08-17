@@ -9,7 +9,9 @@ export class Source extends Element {
     rate = 0;
 
     constructor(name, x, y, rate) {
-        super("Source", name, x, y, SOURCE_WIDTH, SOURCE_HEIGHT, true);
+        super(name, x, y, SOURCE_WIDTH, SOURCE_HEIGHT, true);
+        this.type += ".Source";
+
         this.rate = rate;
 
         this.outputs.push(new Output("Requests", this.width, 0, this));
