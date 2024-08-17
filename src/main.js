@@ -15,9 +15,9 @@ new Server("Flop", 150, 150);
 new Source("Users", 100, window.innerHeight / 2);
 
 // create the event listeners
-addEventListener("mousedown", onMouseDown);
-addEventListener("mouseup", onMouseUp);
-addEventListener("mousemove", onMouseMove);
+addEventListener("mousedown", mouseDown);
+addEventListener("mouseup", mouseUp);
+addEventListener("mousemove", mouseMove);
 
 // kick off the game
 render();
@@ -37,27 +37,21 @@ function render(now) {
 }
 
 // find the front element under the mouse pointer and assign it to be moved
-function onMouseDown(mouseEvent) {
-    for (let i = Element.elements.length - 1; i >= 0; i--) {
-        if (Element.elements[i].moveable === true && Element.elements[i].containsPoint(mouseEvent)) {
-            // assign the element as the element to be moved
-            Element.movingElement = Element.elements[i];
+function mouseDown(mouseEvent) {
+    let element = Element.findUnderPoint(mouseEvent);
 
-            // move it to front
-            Element.elements.push(Element.elements.splice(i, 1)[0]);
-
-            break;
-        }
+    if (element) {
+        element.mouseDown(mouseEvent);
     }
 }
 
 // release the moving element
-function onMouseUp(mouseEvent) {
+function mouseUp(mouseEvent) {
     Element.movingElement = null;
 }
 
 // if an element is assigned to be moved, move it under the mouse pointer
-function onMouseMove(mouseEvent) {
+function mouseMove(mouseEvent) {
     if (Element.movingElement) {
         Element.movingElement.move(mouseEvent.movementX, mouseEvent.movementY);
     }

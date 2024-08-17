@@ -28,6 +28,13 @@ export class Element {
         this.moveable = moveable;
     }
 
+    // this method is called when the mouse button is pressed on this element
+    mouseDown(point) {
+        if (this.moveable) {
+            Element.movingElement = this;
+        }
+    }
+
     // move this element and all attached elements
     move(movementX, movementY) {
         this.x += movementX;
@@ -78,5 +85,14 @@ export class Element {
     // return true if this Element contains the given point, false otherwise
     containsPoint(point) {
         return point.x > this.x && point.x < this.x + this.width && point.y > this.y && point.y < this.y + this.height;
+    }
+
+    // return the top element under the given point
+    static findUnderPoint(point) {
+        for (let i = Element.elements.length - 1; i >= 0; i--) {
+            if (Element.elements[i].containsPoint(point)) {
+                return Element.elements[i];
+            }
+        }
     }
 }

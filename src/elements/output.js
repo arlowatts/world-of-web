@@ -1,11 +1,26 @@
 import { Element } from "./element.js";
+import { Handle } from "./handle.js";
+import { Route } from "./route.js";
 
 const OUTPUT_WIDTH = 20;
 const OUTPUT_HEIGHT = 20;
 
 export class Output extends Element {
+    route = null;
+
     constructor(name, offsetX, offsetY, parentElement) {
         super("Output", name, parentElement.x + offsetX, parentElement.y + offsetY, OUTPUT_WIDTH, OUTPUT_HEIGHT, false);
+    }
+
+    mouseDown(point) {
+        super.mouseDown(point);
+
+        // if this Output doesn't have a Route, create a new one
+        if (!this.route) {
+            let handle = new Handle("Handle", point.x, point.y);
+            this.route = new Route("Route", this, handle);
+            Element.movingElement = this.route.endpointB;
+        }
     }
 
     draw(ctx, Styles) {
