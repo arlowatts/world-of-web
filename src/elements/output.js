@@ -7,6 +7,8 @@ export class Output extends Endpoint {
     }
 
     draw(ctx, Styles) {
+        super.draw(ctx, Styles);
+
         ctx.save();
 
         // draw the plus sign

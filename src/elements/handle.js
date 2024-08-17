@@ -24,6 +24,7 @@ export class Handle extends Element {
         ctx.lineTo(this.x, this.y + this.height * 0.5);
         ctx.lineTo(this.x + this.width * 0.5, this.y);
 
+        ctx.fill();
         ctx.stroke();
 
         ctx.restore();
