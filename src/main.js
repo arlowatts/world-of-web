@@ -1,45 +1,53 @@
-import * as server from "./elements/server.js";
+import { Styles } from "./styles.js";
+import { Element } from "./elements/element.js";
+import { Server } from "./elements/server.js";
 
+// initialize the canvas
 const canvas = document.getElementById("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 
-ctx.fillStyle = "rgb(0 0 0)";
-ctx.strokeStyle = "rgb(100 200 100)";
-
+// create the initial elements
 const elements = [];
-elements.push(server.create());
+elements.push(new Server("A Server", 100, 100));
 
 render();
 
+// draw the scene and request the next animation frame
 function render(now) {
     drawGrid();
 
     elements.forEach((element) => {
-        element.draw();
+        element.draw(ctx, Styles);
     });
 
     //requestAnimationFrame(render);
 }
 
+// draw the background grid
 function drawGrid() {
-    // clear the screen
+    ctx.save();
+
+    // fill the background
+    Styles.box(ctx);
     ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
     ctx.beginPath();
 
-    // draw vertical lines
+    // draw the vertical lines
     for (let i = 0; i < window.innerWidth; i += 40) {
         ctx.moveTo(i, 0);
         ctx.lineTo(i, window.innerHeight);
     }
 
-    // draw horizontal lines
+    // draw the horizontal lines
     for (let i = 0; i < window.innerHeight; i += 40) {
         ctx.moveTo(0, i);
         ctx.lineTo(window.innerWidth, i);
     }
 
     ctx.stroke();
+
+    ctx.restore();
 }

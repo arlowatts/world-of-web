@@ -1,0 +1,57 @@
+export class Element {
+    type = "";
+    name = "";
+
+    x = 0;
+    y = 0;
+
+    width = 0;
+    height = 0;
+
+    constructor(name, x, y, width, height) {
+        this.type = "Element";
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    // draw the element on the given context
+    draw(ctx, Styles) {
+        ctx.save();
+
+        // fill the background
+        Styles.box(ctx);
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        // draw the title
+        Styles.title(ctx);
+        let titleMetrics = ctx.measureText(this.name);
+        ctx.fillText(this.name, this.x - titleMetrics.actualBoundingBoxLeft, this.y);
+
+        // draw the subtitle
+        Styles.subtitle(ctx);
+        let subtitleMetrics = ctx.measureText(this.type);
+        ctx.fillText(this.type, this.x - subtitleMetrics.actualBoundingBoxLeft, this.y + titleMetrics.actualBoundingBoxDescent);
+
+        // draw the box
+        Styles.box(ctx);
+        ctx.beginPath();
+
+        // draw the main outline
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x + this.width, this.y);
+        ctx.lineTo(this.x + this.width, this.y + this.height);
+        ctx.lineTo(this.x, this.y + this.height);
+        ctx.lineTo(this.x, this.y);
+
+        // draw the line under the subtitle
+        ctx.moveTo(this.x, this.y - titleMetrics.actualBoundingBoxAscent + titleMetrics.actualBoundingBoxDescent + subtitleMetrics.actualBoundingBoxDescent);
+        ctx.lineTo(this.x + this.width, this.y - titleMetrics.actualBoundingBoxAscent + titleMetrics.actualBoundingBoxDescent + subtitleMetrics.actualBoundingBoxDescent);
+
+        ctx.stroke();
+
+        ctx.restore();
+    }
+}
