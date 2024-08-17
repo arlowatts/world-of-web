@@ -16,8 +16,19 @@ export class Endpoint extends Element {
     mouseDown(point) {
         super.mouseDown(point);
 
-        // if this Endpoint doesn't have a Route, create a new one
-        if (!this.route) {
+        // detach the existing route or create a new one
+        if (this.route) {
+            if (this.route.endpointA === this) {
+                this.route.endpointA = new Handle("Handle", point.x, point.y);
+            }
+
+            if (this.route.endpointB === this) {
+                this.route.endpointB = new Handle("Handle", point.x, point.y);
+            }
+
+            this.route = null;
+        }
+        else {
             let handle = new Handle("Handle", point.x, point.y);
             this.route = new Route("Route", this, handle);
 
