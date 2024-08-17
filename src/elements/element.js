@@ -13,8 +13,7 @@ export class Element {
 
     moveable = false;
 
-    inputs = [];
-    outputs = [];
+    endpoints = [];
 
     constructor(name, x, y, width, height, moveable) {
         Element.elements.push(this);
@@ -39,8 +38,7 @@ export class Element {
         this.x += movementX;
         this.y += movementY;
 
-        this.inputs.forEach((input) => { input.move(movementX, movementY); });
-        this.outputs.forEach((output) => { output.move(movementX, movementY); });
+        this.endpoints.forEach((endpoint) => { endpoint.move(movementX, movementY); });
     }
 
     // draw the element on the given context
