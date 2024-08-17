@@ -1,4 +1,7 @@
 export class Element {
+    static elements = [];
+    static movingElement = null;
+
     type = "";
     name = "";
 
@@ -11,6 +14,8 @@ export class Element {
     moveable = false;
 
     constructor(type, name, x, y, width, height, moveable) {
+        Element.elements.push(this);
+
         this.type = type;
         this.name = name;
         this.x = x;

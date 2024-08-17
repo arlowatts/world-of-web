@@ -9,15 +9,12 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 
-// lists of elements
-const elements = [];
-let movingElement = null;
-
 // create the initial elements
-elements.push(new Server("Flip", 100, 100));
-elements.push(new Server("Flop", 150, 150));
-elements.push(new Source("Users", 100, window.innerHeight / 2));
+new Server("Flip", 100, 100);
+new Server("Flop", 150, 150);
+new Source("Users", 100, window.innerHeight / 2);
 
+// create the event listeners
 addEventListener("mousedown", onMouseDown);
 addEventListener("mouseup", onMouseUp);
 addEventListener("mousemove", onMouseMove);
@@ -27,24 +24,27 @@ render();
 
 // draw the scene and request the next animation frame
 function render(now) {
+    // draw the background
     drawGrid();
 
-    elements.forEach((element) => {
+    // draw each element
+    Element.elements.forEach((element) => {
         element.draw(ctx, Styles);
     });
 
+    // request the next animation frame
     requestAnimationFrame(render);
 }
 
 // find the front element under the mouse pointer and assign it to be moved
 function onMouseDown(mouseEvent) {
-    for (let i = elements.length - 1; i >= 0; i--) {
-        if (elements[i].moveable === true && elements[i].containsPoint(mouseEvent)) {
+    for (let i = Element.elements.length - 1; i >= 0; i--) {
+        if (Element.elements[i].moveable === true && Element.elements[i].containsPoint(mouseEvent)) {
             // assign the element as the element to be moved
-            movingElement = elements[i];
+            Element.movingElement = Element.elements[i];
 
             // move it to front
-            elements.push(elements.splice(i, 1)[0]);
+            Element.elements.push(Elementelements.splice(i, 1)[0]);
 
             break;
         }
@@ -53,14 +53,14 @@ function onMouseDown(mouseEvent) {
 
 // release the moving element
 function onMouseUp(mouseEvent) {
-    movingElement = null;
+    Element.movingElement = null;
 }
 
 // if an element is assigned to be moved, move it under the mouse pointer
 function onMouseMove(mouseEvent) {
-    if (movingElement) {
-        movingElement.x += mouseEvent.movementX;
-        movingElement.y += mouseEvent.movementY;
+    if (Element.movingElement) {
+        Element.movingElement.x += mouseEvent.movementX;
+        Element.movingElement.y += mouseEvent.movementY;
     }
 }
 
