@@ -8,15 +8,16 @@ export class Element {
     width = 0;
     height = 0;
 
-    moveable = true;
+    moveable = false;
 
-    constructor(name, x, y, width, height) {
-        this.type = "Element";
+    constructor(type, name, x, y, width, height, moveable) {
+        this.type = type;
         this.name = name;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.moveable = moveable;
     }
 
     // draw the element on the given context

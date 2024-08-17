@@ -1,6 +1,7 @@
 import { Styles } from "./styles.js";
 import { Element } from "./elements/element.js";
 import { Server } from "./elements/server.js";
+import { Source } from "./elements/source.js";
 
 // initialize the canvas
 const canvas = document.getElementById("canvas");
@@ -15,6 +16,7 @@ let movingElement = null;
 // create the initial elements
 elements.push(new Server("Flip", 100, 100));
 elements.push(new Server("Flop", 150, 150));
+elements.push(new Source("Users", 100, window.innerHeight / 2));
 
 addEventListener("mousedown", onMouseDown);
 addEventListener("mouseup", onMouseUp);
