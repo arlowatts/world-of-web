@@ -44,7 +44,7 @@ function onMouseDown(mouseEvent) {
             Element.movingElement = Element.elements[i];
 
             // move it to front
-            Element.elements.push(Elementelements.splice(i, 1)[0]);
+            Element.elements.push(Element.elements.splice(i, 1)[0]);
 
             break;
         }
@@ -59,8 +59,7 @@ function onMouseUp(mouseEvent) {
 // if an element is assigned to be moved, move it under the mouse pointer
 function onMouseMove(mouseEvent) {
     if (Element.movingElement) {
-        Element.movingElement.x += mouseEvent.movementX;
-        Element.movingElement.y += mouseEvent.movementY;
+        Element.movingElement.move(mouseEvent.movementX, mouseEvent.movementY);
     }
 }
 

@@ -6,11 +6,13 @@ export class Styles {
     static box(ctx) {
         ctx.fillStyle = BLACK;
         ctx.strokeStyle = DARK_GREEN;
+        ctx.lineWidth = 1;
     }
 
     static title(ctx) {
         ctx.fillStyle = GREEN;
         ctx.strokeStyle = GREEN;
+        ctx.lineWidth = 4;
         ctx.font = "bold 24px monospace";
         ctx.textBaseline = "top";
     }
@@ -18,6 +20,7 @@ export class Styles {
     static subtitle(ctx) {
         ctx.fillStyle = DARK_GREEN;
         ctx.strokeStyle = DARK_GREEN;
+        ctx.lineWidth = 2;
         ctx.font = "bold 16px monospace";
         ctx.textBaseline = "top";
     }
@@ -25,6 +28,7 @@ export class Styles {
     static paragraph(ctx) {
         ctx.fillStyle = GREEN;
         ctx.strokeStyle = GREEN;
+        ctx.lineWidth = 2;
         ctx.font = "16px monospace";
         ctx.textBaseline = "top";
     }

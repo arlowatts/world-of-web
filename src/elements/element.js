@@ -13,6 +13,9 @@ export class Element {
 
     moveable = false;
 
+    inputs = [];
+    outputs = [];
+
     constructor(type, name, x, y, width, height, moveable) {
         Element.elements.push(this);
 
@@ -23,6 +26,15 @@ export class Element {
         this.width = width;
         this.height = height;
         this.moveable = moveable;
+    }
+
+    // move this element and all attached elements
+    move(movementX, movementY) {
+        this.x += movementX;
+        this.y += movementY;
+
+        this.inputs.forEach((input) => { input.move(movementX, movementY); });
+        this.outputs.forEach((output) => { output.move(movementX, movementY); });
     }
 
     // draw the element on the given context
