@@ -4,8 +4,8 @@ const HANDLE_WIDTH = 20;
 const HANDLE_HEIGHT = 20;
 
 export class Handle extends Element {
-    constructor(name, x, y) {
-        super(name, x, y, HANDLE_WIDTH, HANDLE_HEIGHT, true);
+    constructor(x, y) {
+        super("Handle", x - HANDLE_WIDTH * 0.5, y - HANDLE_HEIGHT * 0.5, HANDLE_WIDTH, HANDLE_HEIGHT, true);
         this.type += ".Handle";
 
         Element.movingElement = this;
@@ -14,7 +14,7 @@ export class Handle extends Element {
     draw(ctx, Styles) {
         ctx.save();
 
-        // draw the diamond
+        // draw and fill the diamond
         Styles.box(ctx);
         ctx.beginPath();
 
