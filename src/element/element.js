@@ -17,6 +17,8 @@ export class Element {
 
     endpoints = [];
 
+    metrics = {};
+
     constructor(name, x, y, width, height, moveable) {
         Element.elements.push(this);
 
@@ -44,6 +46,10 @@ export class Element {
     // element is the moving element
     mouseUp(point) {
         Element.movingElement = null;
+    }
+
+    // this method is called when the mouse button is clicked on this element
+    mouseClick(point) {
     }
 
     // move this element and all attached elements

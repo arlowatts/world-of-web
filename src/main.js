@@ -14,10 +14,17 @@ new Server("Flip", 100, 100);
 new Server("Flop", 150, 150);
 new Source("Users", 100, window.innerHeight / 2, 1000);
 
+// store the position of the last mouseDown event
+let mouseDownPoint = {
+    x: 0,
+    y: 0,
+};
+
 // create the event listeners
 addEventListener("mousedown", mouseDown);
 addEventListener("mouseup", mouseUp);
 addEventListener("mousemove", mouseMove);
+addEventListener("click", mouseClick);
 
 // kick off the game
 render();
@@ -44,6 +51,9 @@ function render(now) {
 
 // find the top element under the mouse pointer and trigger it
 function mouseDown(mouseEvent) {
+    mouseDownPoint.x = mouseEvent.x;
+    mouseDownPoint.y = mouseEvent.y;
+
     let element = Element.findUnderPoint(mouseEvent);
 
     if (element) {
@@ -64,6 +74,18 @@ function mouseMove(mouseEvent) {
         Element.movingElement.move(mouseEvent.movementX, mouseEvent.movementY);
     }
 }
+
+// find the top element under the mouse pointer and trigger it
+function mouseClick(mouseEvent) {
+    if (mouseDownPoint.x === mouseEvent.x && mouseDownPoint.y === mouseEvent.y) {
+        let element = Element.findUnderPoint(mouseEvent);
+
+        if (element) {
+            element.mouseClick(mouseEvent);
+        }
+    }
+}
+
 
 // draw the background grid
 function drawGrid() {

@@ -6,8 +6,13 @@ import { Message } from "./message.js";
 const SOURCE_WIDTH = 50;
 const SOURCE_HEIGHT = 50;
 
+const TIME_SMOOTHING = 0.5;
+
 export class Source extends Element {
-    failedRequests = 0;
+    metrics = {
+        requestFailedCount: 0,
+        requestTime: 0,
+    };
 
     rate = 0;
 
@@ -35,13 +40,15 @@ export class Source extends Element {
             this.output.addMessage(new Message(this));
         }
         else {
-            this.failedRequests++;
+            this.metrics.requestFailedCount++;
         }
     }
 
     addMessage(message) {
+        this.metrics.requestTime = TIME_SMOOTHING * message.time + (1 - TIME_SMOOTHING) * this.metrics.requestTime;
+
         if (!message.success) {
-            this.failedRequests++;
+            this.metrics.requestFailedCount++;
         }
 
         message.deleted = true;
