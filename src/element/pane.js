@@ -10,7 +10,7 @@ const PANE_WIDTH = (window.innerWidth - (PANE_WIDTH_RATIO + 1) * PADDING) / PANE
 const PANE_HEIGHT = (window.innerHeight - (PANE_HEIGHT_RATIO + 1) * PADDING) / PANE_HEIGHT_RATIO;
 
 export class Pane extends Element {
-    static x = PADDING;
+    static x = window.innerWidth - PANE_WIDTH - PADDING;
     static y = PADDING;
 
     constructor(parentElement) {
