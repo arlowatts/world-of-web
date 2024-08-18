@@ -8,6 +8,12 @@ const SERVER_HEIGHT = 100;
 export class Server extends Element {
     static delay = 500;
 
+    metrics = {
+        processingTime: [0],
+        cpu: [0],
+        memory: [0],
+    };
+
     output = null;
     inputs = [];
 
@@ -24,6 +30,9 @@ export class Server extends Element {
 
     addMessage(message) {
         message.set(this);
+
+        // update metrics
+        Element.smooth(this.metrics.processingTime, Server.delay);
 
         message.time += Server.delay;
         message.timeNow = Date.now();

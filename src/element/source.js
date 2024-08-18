@@ -47,7 +47,7 @@ export class Source extends Element {
     }
 
     addMessage(message) {
-        this.metrics.requestTime[0] = TIME_SMOOTHING * message.time + (1 - TIME_SMOOTHING) * this.metrics.requestTime[0];
+        Element.smooth(this.metrics.requestTime, message.time);
 
         if (!message.success) {
             this.metrics.requestFailedCount[0]++;

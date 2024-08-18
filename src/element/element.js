@@ -1,6 +1,8 @@
 const METRIC_TIME = 1000;
 const METRIC_RETENTION = 60;
 
+const TIME_SMOOTHING = 0.5;
+
 export class Element {
     static elements = [];
     static movingElement = null;
@@ -40,6 +42,7 @@ export class Element {
         setInterval(() => this.updateMetrics(), METRIC_TIME);
     }
 
+    // update this Element's array of metric data for each metric
     updateMetrics() {
         Object.keys(this.metrics).forEach((key) => {
             this.metrics[key].unshift(this.metrics[key][0]);
@@ -156,6 +159,11 @@ export class Element {
     toTop() {
         Element.elements.push(this);
         this.moved.push(true);
+    }
+
+    // uses exponential smoothing to update the given metric
+    static smooth(metric, value) {
+        metric[0] = TIME_SMOOTHING * value + (1 - TIME_SMOOTHING) * metric[0];
     }
 
     // remove the current pane
