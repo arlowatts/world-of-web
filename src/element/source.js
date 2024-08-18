@@ -20,7 +20,7 @@ export class Source extends Element {
     input = null;
 
     constructor(name, x, y, rate) {
-        super(name, x, y, SOURCE_WIDTH, SOURCE_HEIGHT, true);
+        super(name, x, y, SOURCE_WIDTH, SOURCE_HEIGHT, true, true);
         this.type += ".Source";
 
         this.rate = rate;

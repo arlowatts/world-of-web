@@ -12,7 +12,7 @@ export class Server extends Element {
     inputs = [];
 
     constructor(name, x, y) {
-        super(name, x, y, SERVER_WIDTH, SERVER_HEIGHT, true);
+        super(name, x, y, SERVER_WIDTH, SERVER_HEIGHT, true, true);
         this.type += ".Server";
 
         this.output = new Output(this.width * 0.5, 0, this);

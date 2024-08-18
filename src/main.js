@@ -1,7 +1,11 @@
 import { Styles } from "./styles.js";
 import { Element } from "./element/element.js";
+import { Pane } from "./element/pane.js";
 import { Server } from "./element/server.js";
 import { Source } from "./element/source.js";
+
+// set the standard Pane class
+Element.Pane = Pane;
 
 // initialize the canvas
 const canvas = document.getElementById("canvas");
@@ -52,7 +56,7 @@ function render(now) {
 
     // draw other Elements
     for (let i = 0; i < Element.elements.length; i++) {
-        if (Element.elements[i].type !== "Element.Route" && Element.elements[i].type !== "Element.Message") {
+        if (Element.elements[i].type !== "Element.Route" && Element.elements[i].type !== "Element.Message" && Element.elements[i].type !== "Element.Pane") {
             Element.elements[i].draw(ctx, Styles);
         }
     }
@@ -71,6 +75,11 @@ function render(now) {
         }
     }
 
+    // draw the Pane, if it exists
+    if (Element.currentPane) {
+        Element.currentPane.draw(ctx, Styles);
+    }
+
     // request the next animation frame
     requestAnimationFrame(render);
 }
@@ -84,6 +93,9 @@ function mouseDown(mouseEvent) {
 
     if (element) {
         element.mouseDown(mouseEvent);
+    }
+    else {
+        Element.clearPane();
     }
 }
 

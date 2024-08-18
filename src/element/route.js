@@ -7,7 +7,7 @@ export class Route extends Element {
     endpointB = null;
 
     constructor(endpointA, endpointB) {
-        super("Route", 0, 0, -1, -1, false);
+        super("Route", 0, 0, -1, -1, false, false);
         this.type += ".Route";
 
         this.endpointA = endpointA;

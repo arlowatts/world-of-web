@@ -7,7 +7,7 @@ export class Handle extends Element {
     route = null;
 
     constructor(x, y, route) {
-        super("Handle", x - HANDLE_WIDTH * 0.5, y - HANDLE_HEIGHT * 0.5, HANDLE_WIDTH, HANDLE_HEIGHT, true);
+        super("Handle", x - HANDLE_WIDTH * 0.5, y - HANDLE_HEIGHT * 0.5, HANDLE_WIDTH, HANDLE_HEIGHT, true, false);
         this.type += ".Handle";
 
         this.route = route;

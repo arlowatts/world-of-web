@@ -1,6 +1,8 @@
 export class Element {
     static elements = [];
     static movingElement = null;
+    static currentPane = null;
+    static Pane = null;
 
     deleted = false;
     moved = [];
@@ -15,12 +17,13 @@ export class Element {
     height = 0;
 
     moveable = false;
+    hasPane = true;
 
     endpoints = [];
 
     metrics = {};
 
-    constructor(name, x, y, width, height, moveable) {
+    constructor(name, x, y, width, height, moveable, hasPane) {
         Element.elements.push(this);
 
         this.name = name;
@@ -29,6 +32,7 @@ export class Element {
         this.width = width;
         this.height = height;
         this.moveable = moveable;
+        this.hasPane = hasPane;
     }
 
     addMessage(message) {
@@ -54,6 +58,14 @@ export class Element {
         this.toTop();
 
         this.endpoints.forEach((endpoint) => { endpoint.toTop(); });
+
+        if (this.type !== "Element.Pane") {
+            Element.clearPane();
+
+            if (this.hasPane) {
+                Element.currentPane = new Element.Pane(this);
+            }
+        }
     }
 
     // move this element and all attached elements
@@ -126,6 +138,14 @@ export class Element {
     toTop() {
         Element.elements.push(this);
         this.moved.push(true);
+    }
+
+    // remove the current pane
+    static clearPane() {
+        if (Element.currentPane) {
+            Element.currentPane.deleted = true;
+            Element.currentPane = null;
+        }
     }
 
     // return the top element under the given point

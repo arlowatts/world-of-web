@@ -10,7 +10,7 @@ export class Endpoint extends Element {
     parentElement = null;
 
     constructor(offsetX, offsetY, parentElement) {
-        super("Endpoint", parentElement.x + offsetX - ENDPOINT_WIDTH * 0.5, parentElement.y + offsetY - ENDPOINT_HEIGHT * 0.5, ENDPOINT_WIDTH, ENDPOINT_HEIGHT, false);
+        super("Endpoint", parentElement.x + offsetX - ENDPOINT_WIDTH * 0.5, parentElement.y + offsetY - ENDPOINT_HEIGHT * 0.5, ENDPOINT_WIDTH, ENDPOINT_HEIGHT, false, false);
         this.type += ".Endpoint";
 
         this.parentElement = parentElement;
