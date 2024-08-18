@@ -7,6 +7,8 @@ export class Element {
     static elements = [];
     static movingElement = null;
     static currentPane = null;
+    static account = null;
+
     static Pane = null;
 
     deleted = false;

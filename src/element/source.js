@@ -49,7 +49,10 @@ export class Source extends Element {
     addMessage(message) {
         Element.smooth(this.metrics.requestTime, message.time);
 
-        if (!message.success) {
+        if (message.success) {
+            Element.account.add(1);
+        }
+        else {
             this.metrics.requestFailedCount[0]++;
         }
 

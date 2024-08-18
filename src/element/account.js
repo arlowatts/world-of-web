@@ -1,13 +1,26 @@
 import { Element } from "./element.js";
 
 export class Account extends Element {
-    amount = 0;
+    metrics = {
+        amount: [0],
+    };
 
     constructor(name, x, y, amount) {
         super(name, x, y, 0, 0, false, true);
         this.type += ".Account";
 
-        this.amount = amount;
+        this.metrics.amount[0] = amount;
+
+        if (Element.account) {
+            Element.account.deleted = true;
+            Element.account = null;
+        }
+
+        Element.account = this;
+    }
+
+    add(amount) {
+        this.metrics.amount[0] += amount;
     }
 
     draw(ctx, Styles) {
@@ -16,7 +29,7 @@ export class Account extends Element {
         Styles.title(ctx);
 
         // determine how to display the amount
-        let displayText = this.amount.toString();
+        let displayText = this.metrics.amount[0].toString();
 
         if (displayText.length % 3) {
             displayText = displayText.padStart(displayText.length - displayText.length % 3 + 3, " ");
