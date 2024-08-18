@@ -7,14 +7,11 @@ export class Output extends Endpoint {
     }
 
     addMessage(message) {
-        message.parentElement = this;
-
         if (this.route) {
             this.route.addMessage(message);
         }
         else {
-            message.success = false;
-            message.origin.addMessage(message);
+            message.fail();
         }
     }
 

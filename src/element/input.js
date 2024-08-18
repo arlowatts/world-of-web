@@ -6,6 +6,10 @@ export class Input extends Endpoint {
         this.type += ".Input";
     }
 
+    addMessage(message) {
+        this.parentElement.addMessage(message);
+    }
+
     draw(ctx, Styles) {
         super.draw(ctx, Styles);
 

@@ -7,10 +7,13 @@ const ENDPOINT_HEIGHT = 20;
 
 export class Endpoint extends Element {
     route = null;
+    parentElement = null;
 
     constructor(offsetX, offsetY, parentElement) {
         super("Endpoint", parentElement.x + offsetX - ENDPOINT_WIDTH * 0.5, parentElement.y + offsetY - ENDPOINT_HEIGHT * 0.5, ENDPOINT_WIDTH, ENDPOINT_HEIGHT, false);
         this.type += ".Endpoint";
+
+        this.parentElement = parentElement;
     }
 
     mouseDown(point) {

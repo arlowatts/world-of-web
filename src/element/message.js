@@ -18,4 +18,18 @@ export class Message extends Element {
         this.origin = origin;
         this.parentElement = origin;
     }
+
+    set(element) {
+        this.parentElement = element;
+    }
+
+    fail() {
+        if (this.origin) {
+            this.success = false;
+            this.origin.addMessage(this);
+        }
+        else {
+            this.deleted = true;
+        }
+    }
 }

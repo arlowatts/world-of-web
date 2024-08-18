@@ -13,8 +13,21 @@ export class Route extends Element {
     }
 
     addMessage(message) {
-        message.parentElement = this;
-        message.origin.addMessage(message);
+        let previousElement = message.parentElement;
+        message.set(this);
+
+        if (this.endpointA.type === this.endpointB.type) {
+            message.fail();
+        }
+        else if (this.endpointA === previousElement && this.endpointB) {
+            this.endpointB.addMessage(message);
+        }
+        else if (this.endpointB === previousElement && this.endpointA) {
+            this.endpointA.addMessage(message);
+        }
+        else {
+            message.fail();
+        }
     }
 
     draw(ctx, Styles) {

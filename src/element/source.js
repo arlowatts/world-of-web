@@ -40,8 +40,6 @@ export class Source extends Element {
     }
 
     addMessage(message) {
-        message.parentElement = this;
-
         if (!message.success) {
             this.failedRequests++;
         }

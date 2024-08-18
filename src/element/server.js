@@ -6,11 +6,28 @@ const SERVER_WIDTH = 150;
 const SERVER_HEIGHT = 100;
 
 export class Server extends Element {
+    output = null;
+    inputs = [];
+
     constructor(name, x, y) {
         super(name, x, y, SERVER_WIDTH, SERVER_HEIGHT, true);
         this.type += ".Server";
 
-        this.endpoints.push(new Output(this.width * 0.5, 0, this));
-        this.endpoints.push(new Input(this.width * 0.5, this.height, this));
+        this.output = new Output(this.width * 0.5, 0, this);
+        this.inputs.push(new Input(this.width * 0.5, this.height, this));
+
+        this.endpoints.push(this.output);
+        this.endpoints.push(...this.inputs);
+    }
+
+    addMessage(message) {
+        message.set(this);
+
+        if (this.output) {
+            this.output.addMessage(message);
+        }
+        else {
+            message.fail();
+        }
     }
 }

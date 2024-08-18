@@ -28,6 +28,10 @@ export class Element {
         this.moveable = moveable;
     }
 
+    addMessage(message) {
+        message.fail();
+    }
+
     // this method is called when the mouse button is pressed on this element
     mouseDown(point) {
         if (this.moveable) {
