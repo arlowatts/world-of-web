@@ -20,7 +20,20 @@ export class Pane extends Element {
     }
 
     draw(ctx, Styles) {
-        super.draw(ctx, Styles);
+        let textY = super.draw(ctx, Styles);
+
+        ctx.save();
+
+        // draw the metrics in the pane
+        Styles.paragraph(ctx);
+        Object.keys(this.metrics).forEach((key) => {
+            ctx.fillText(key + ": " + this.metrics[key], this.x + PADDING, textY);
+            textY += ctx.measureText(key).actualBoundingBoxDescent;
+        });
+
+        ctx.restore();
+
+        return textY;
     }
 
     move(movementX, movementY) {

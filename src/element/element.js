@@ -108,12 +108,15 @@ export class Element {
         ctx.lineTo(this.x, this.y);
 
         // draw the line under the subtitle
-        ctx.moveTo(this.x, this.y - titleMetrics.actualBoundingBoxAscent + titleMetrics.actualBoundingBoxDescent + subtitleMetrics.actualBoundingBoxDescent);
-        ctx.lineTo(this.x + this.width, this.y - titleMetrics.actualBoundingBoxAscent + titleMetrics.actualBoundingBoxDescent + subtitleMetrics.actualBoundingBoxDescent);
+        let underlineY = this.y - titleMetrics.actualBoundingBoxAscent + titleMetrics.actualBoundingBoxDescent + subtitleMetrics.actualBoundingBoxDescent;
+        ctx.moveTo(this.x, underlineY);
+        ctx.lineTo(this.x + this.width, underlineY);
 
         ctx.stroke();
 
         ctx.restore();
+
+        return underlineY;
     }
 
     // return true if this Element touches the given Element, false otherwise
