@@ -12,7 +12,7 @@ const ctx = canvas.getContext("2d");
 // create the initial elements
 new Server("Flip", 100, 100);
 new Server("Flop", 150, 150);
-new Source("Users", 100, window.innerHeight / 2, 1000);
+new Source("Users", 100, window.innerHeight / 2, 1 / 1000);
 
 // store the position of the last mouseDown event
 let mouseDownPoint = {
@@ -37,6 +37,13 @@ function render(now) {
     // draw each element
     for (let i = 0; i < Element.elements.length; i++) {
         if (Element.elements[i].deleted) {
+            Element.elements.splice(i, 1);
+            i--;
+            continue;
+        }
+
+        if (Element.elements[i].moved.length > 0) {
+            Element.elements[i].moved.shift();
             Element.elements.splice(i, 1);
             i--;
             continue;

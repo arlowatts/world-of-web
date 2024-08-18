@@ -3,6 +3,7 @@ export class Element {
     static movingElement = null;
 
     deleted = false;
+    moved = [];
 
     type = "Element";
     name = "";
@@ -50,10 +51,15 @@ export class Element {
 
     // this method is called when the mouse button is clicked on this element
     mouseClick(point) {
+        this.toTop();
+
+        this.endpoints.forEach((endpoint) => { endpoint.toTop(); });
     }
 
     // move this element and all attached elements
     move(movementX, movementY) {
+        this.toTop();
+
         this.x += movementX;
         this.y += movementY;
 
@@ -114,6 +120,12 @@ export class Element {
     containsPoint(point) {
         return point.x > this.x && point.x < this.x + this.width
             && point.y > this.y && point.y < this.y + this.height;
+    }
+
+    // moves this Element to the top of the display
+    toTop() {
+        Element.elements.push(this);
+        this.moved.push(true);
     }
 
     // return the top element under the given point

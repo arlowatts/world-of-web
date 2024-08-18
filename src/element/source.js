@@ -31,7 +31,9 @@ export class Source extends Element {
         this.endpoints.push(this.output);
         this.endpoints.push(this.input);
 
-        setInterval(() => this.createMessage(), this.rate);
+        if (this.rate > 0) {
+            setInterval(() => this.createMessage(), 1 / this.rate);
+        }
     }
 
     // create a new request and send it to the output endpoint
