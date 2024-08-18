@@ -29,7 +29,7 @@ export class Message extends Element {
                 ctx.save();
 
                 // draw the circle
-                Styles.paragraph(ctx);
+                Styles.message(ctx);
                 ctx.beginPath();
 
                 ctx.arc(pointOnRoute.x, pointOnRoute.y, MESSAGE_RADIUS, 0, 2 * Math.PI);
