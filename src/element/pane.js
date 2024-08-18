@@ -1,6 +1,7 @@
 import { Element } from "./element.js";
 
 const PADDING = 20;
+const PLOT_HEIGHT = 200;
 
 const PANE_WIDTH_RATIO = 4;
 const PANE_HEIGHT_RATIO = 1;
@@ -20,20 +21,59 @@ export class Pane extends Element {
     }
 
     draw(ctx, Styles) {
-        let textY = super.draw(ctx, Styles);
+        let textY = super.draw(ctx, Styles) + PADDING;
 
         ctx.save();
 
         // draw the metrics in the pane
         Styles.paragraph(ctx);
         Object.keys(this.metrics).forEach((key) => {
-            ctx.fillText(key + ": " + this.metrics[key], this.x + PADDING, textY);
-            textY += ctx.measureText(key).actualBoundingBoxDescent;
+            ctx.fillText(key + ": " + this.metrics[key][0], this.x + PADDING, textY);
+            textY += ctx.measureText(key).actualBoundingBoxDescent + PADDING;
+
+            this.plot(ctx, Styles, this.metrics[key], this.x + PADDING, textY, this.width - 2 * PADDING, PLOT_HEIGHT);
+            textY += PLOT_HEIGHT + PADDING;
         });
 
         ctx.restore();
 
         return textY;
+    }
+
+    // plot an array of data
+    plot(ctx, Styles, data, x, y, width, height) {
+        ctx.save();
+
+        let max = 0;
+
+        // determine the maximum value for the plot scale
+        for (let i = 0; i < data.length; i++) {
+            if (data[i] > max) {
+                max = data[i];
+            }
+        }
+
+        // plot the data
+        Styles.paragraph(ctx);
+        ctx.beginPath();
+
+        if (max > 0) {
+            // move to the first data point
+            ctx.moveTo(x + width, y + (1 - data[0] / max) * height);
+
+            // draw a line to the next data point
+            for (let i = 1; i < data.length; i++) {
+                ctx.lineTo(x + (1 - i / (data.length - 1)) * width, y + (1 - data[i] / max) * height);
+            }
+        }
+        else {
+            ctx.moveTo(x + width, y + height);
+            ctx.lineTo(x, y + height);
+        }
+
+        ctx.stroke();
+
+        ctx.restore();
     }
 
     move(movementX, movementY) {

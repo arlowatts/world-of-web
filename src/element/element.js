@@ -1,3 +1,6 @@
+const METRIC_TIME = 1000;
+const METRIC_RETENTION = 60;
+
 export class Element {
     static elements = [];
     static movingElement = null;
@@ -33,6 +36,18 @@ export class Element {
         this.height = height;
         this.moveable = moveable;
         this.hasPane = hasPane;
+
+        setInterval(() => this.updateMetrics(), METRIC_TIME);
+    }
+
+    updateMetrics() {
+        Object.keys(this.metrics).forEach((key) => {
+            this.metrics[key].unshift(this.metrics[key][0]);
+
+            if (this.metrics[key].length > METRIC_RETENTION) {
+                this.metrics[key].pop();
+            }
+        });
     }
 
     addMessage(message) {

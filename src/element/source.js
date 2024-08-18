@@ -10,8 +10,8 @@ const TIME_SMOOTHING = 0.5;
 
 export class Source extends Element {
     metrics = {
-        requestFailedCount: 0,
-        requestTime: 0,
+        requestFailedCount: [0],
+        requestTime: [0],
     };
 
     rate = 0;
@@ -42,17 +42,23 @@ export class Source extends Element {
             this.output.addMessage(new Message(this));
         }
         else {
-            this.metrics.requestFailedCount++;
+            this.metrics.requestFailedCount[0]++;
         }
     }
 
     addMessage(message) {
-        this.metrics.requestTime = TIME_SMOOTHING * message.time + (1 - TIME_SMOOTHING) * this.metrics.requestTime;
+        this.metrics.requestTime[0] = TIME_SMOOTHING * message.time + (1 - TIME_SMOOTHING) * this.metrics.requestTime[0];
 
         if (!message.success) {
-            this.metrics.requestFailedCount++;
+            this.metrics.requestFailedCount[0]++;
         }
 
         message.deleted = true;
+    }
+
+    updateMetrics() {
+        super.updateMetrics();
+
+        this.metrics.requestFailedCount[0] = 0;
     }
 }
