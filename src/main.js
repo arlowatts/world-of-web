@@ -34,7 +34,7 @@ function render(now) {
     // draw the background
     drawGrid();
 
-    // draw each element
+    // remove moved or deleted elements
     for (let i = 0; i < Element.elements.length; i++) {
         if (Element.elements[i].deleted) {
             Element.elements.splice(i, 1);
@@ -48,8 +48,27 @@ function render(now) {
             i--;
             continue;
         }
+    }
 
-        Element.elements[i].draw(ctx, Styles);
+    // draw other Elements
+    for (let i = 0; i < Element.elements.length; i++) {
+        if (Element.elements[i].type !== "Element.Route" && Element.elements[i].type !== "Element.Message") {
+            Element.elements[i].draw(ctx, Styles);
+        }
+    }
+
+    // draw Routes
+    for (let i = 0; i < Element.elements.length; i++) {
+        if (Element.elements[i].type === "Element.Route") {
+            Element.elements[i].draw(ctx, Styles);
+        }
+    }
+
+    // draw Messages
+    for (let i = 0; i < Element.elements.length; i++) {
+        if (Element.elements[i].type === "Element.Message") {
+            Element.elements[i].draw(ctx, Styles);
+        }
     }
 
     // request the next animation frame
