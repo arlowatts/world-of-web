@@ -1,8 +1,8 @@
 import { Endpoint } from "./endpoint.js";
 
 export class Output extends Endpoint {
-    constructor(name, offsetX, offsetY, parentElement) {
-        super(name, offsetX, offsetY, parentElement);
+    constructor(offsetX, offsetY, parentElement) {
+        super(offsetX, offsetY, parentElement);
         this.type += ".Output";
     }
 

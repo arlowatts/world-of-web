@@ -8,8 +8,8 @@ const ENDPOINT_HEIGHT = 20;
 export class Endpoint extends Element {
     route = null;
 
-    constructor(name, offsetX, offsetY, parentElement) {
-        super(name, parentElement.x + offsetX, parentElement.y + offsetY, ENDPOINT_WIDTH, ENDPOINT_HEIGHT, false);
+    constructor(offsetX, offsetY, parentElement) {
+        super("Endpoint", parentElement.x + offsetX - ENDPOINT_WIDTH * 0.5, parentElement.y + offsetY - ENDPOINT_HEIGHT * 0.5, ENDPOINT_WIDTH, ENDPOINT_HEIGHT, false);
         this.type += ".Endpoint";
     }
 
@@ -30,7 +30,7 @@ export class Endpoint extends Element {
         }
         else {
             let handle = new Handle(point.x, point.y, null);
-            this.route = new Route("Route", this, handle);
+            this.route = new Route(this, handle);
             handle.route = this.route;
 
             Element.movingElement = this.route.endpointB;

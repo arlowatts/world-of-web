@@ -14,7 +14,7 @@ export class Source extends Element {
 
         this.rate = rate;
 
-        this.endpoints.push(new Output("Requests", this.width, 0, this));
-        this.endpoints.push(new Input("Responses", this.width, this.height, this));
+        this.endpoints.push(new Output(this.width * 0.5, 0, this));
+        this.endpoints.push(new Input(this.width * 0.5, this.height, this));
     }
 }
