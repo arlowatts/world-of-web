@@ -4,11 +4,40 @@ const HANDLE_WIDTH = 20;
 const HANDLE_HEIGHT = 20;
 
 export class Handle extends Element {
-    constructor(x, y) {
+    route = null;
+
+    constructor(x, y, route) {
         super("Handle", x - HANDLE_WIDTH * 0.5, y - HANDLE_HEIGHT * 0.5, HANDLE_WIDTH, HANDLE_HEIGHT, true);
         this.type += ".Handle";
 
+        this.route = route;
+
         Element.movingElement = this;
+    }
+
+    mouseUp(mouseEvent) {
+        super.mouseUp(mouseEvent);
+
+        // detect if this handle is dropped on an Endpoint and change the route
+        if (this.route) {
+            for (let i = Element.elements.length - 1; i >= 0; i--) {
+                // only attach to unused Endpoints
+                if (Element.elements[i].type.startsWith("Element.Endpoint") && !Element.elements[i].route && Element.elements[i].touchesElement(this)) {
+                    if (this.route.endpointA === this) {
+                        this.route.endpointA = Element.elements[i];
+                        Element.elements[i].route = this.route;
+                    }
+
+                    if (this.route.endpointB === this) {
+                        this.route.endpointB = Element.elements[i];
+                        Element.elements[i].route = this.route;
+                    }
+
+                    this.route = null;
+                    break;
+                }
+            }
+        }
     }
 
     draw(ctx, Styles) {

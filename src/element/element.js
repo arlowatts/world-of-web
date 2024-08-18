@@ -33,6 +33,12 @@ export class Element {
         }
     }
 
+    // this method is called when the mouse button is released while this
+    // element is the moving element
+    mouseUp(point) {
+        Element.movingElement = null;
+    }
+
     // move this element and all attached elements
     move(movementX, movementY) {
         this.x += movementX;
@@ -77,6 +83,12 @@ export class Element {
         ctx.stroke();
 
         ctx.restore();
+    }
+
+    // return true if this Element touches the given Element, false otherwise
+    touchesElement(element) {
+        return element.x + element.width > this.x && element.x < this.x + this.width
+            && element.y + element.height > this.y && element.y < this.y + this.height;
     }
 
     // return true if this Element contains the given Element, false otherwise

@@ -36,7 +36,7 @@ function render(now) {
     requestAnimationFrame(render);
 }
 
-// find the front element under the mouse pointer and assign it to be moved
+// find the top element under the mouse pointer and trigger it
 function mouseDown(mouseEvent) {
     let element = Element.findUnderPoint(mouseEvent);
 
@@ -45,9 +45,11 @@ function mouseDown(mouseEvent) {
     }
 }
 
-// release the moving element
+// trigger the moving element
 function mouseUp(mouseEvent) {
-    Element.movingElement = null;
+    if (Element.movingElement) {
+        Element.movingElement.mouseUp(mouseEvent);
+    }
 }
 
 // if an element is assigned to be moved, move it under the mouse pointer

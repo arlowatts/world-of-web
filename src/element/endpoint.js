@@ -19,18 +19,19 @@ export class Endpoint extends Element {
         // detach the existing route or create a new one
         if (this.route) {
             if (this.route.endpointA === this) {
-                this.route.endpointA = new Handle(point.x, point.y);
+                this.route.endpointA = new Handle(point.x, point.y, this.route);
             }
 
             if (this.route.endpointB === this) {
-                this.route.endpointB = new Handle(point.x, point.y);
+                this.route.endpointB = new Handle(point.x, point.y, this.route);
             }
 
             this.route = null;
         }
         else {
-            let handle = new Handle(point.x, point.y);
+            let handle = new Handle(point.x, point.y, null);
             this.route = new Route("Route", this, handle);
+            handle.route = this.route;
 
             Element.movingElement = this.route.endpointB;
         }
