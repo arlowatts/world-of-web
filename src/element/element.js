@@ -29,6 +29,7 @@ export class Element {
     }
 
     addMessage(message) {
+        message.set(this);
         message.fail();
     }
 

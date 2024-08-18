@@ -7,6 +7,8 @@ export class Output extends Endpoint {
     }
 
     addMessage(message) {
+        message.set(this);
+
         if (this.route) {
             this.route.addMessage(message);
         }

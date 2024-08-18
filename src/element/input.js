@@ -7,6 +7,7 @@ export class Input extends Endpoint {
     }
 
     addMessage(message) {
+        message.set(this);
         this.parentElement.addMessage(message);
     }
 
