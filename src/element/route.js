@@ -43,13 +43,15 @@ export class Route extends Element {
         let bX = this.endpointB.x + this.endpointB.width * 0.5;
         let bY = this.endpointB.y + this.endpointB.height * 0.5;
 
-        if (this.endpointA.type === "Element.Endpoint.Output" && this.endpointB.type === "Element.Endpoint.Input") {
+        if (this.endpointA.type === "Element.Endpoint.Output" && this.endpointB.type === "Element.Endpoint.Input" ||
+            this.endpointA.type === "Element.Endpoint.Output" && this.endpointB.type === "Element.Handle") {
             return {
                 x: aX + t * (bX - aX),
                 y: aY + t * (bY - aY),
             };
         }
-        else if (this.endpointA.type === "Element.Endpoint.Input" && this.endpointB.type === "Element.Endpoint.Output") {
+        else if (this.endpointB.type === "Element.Endpoint.Output" && this.endpointA.type === "Element.Endpoint.Input" ||
+            this.endpointB.type === "Element.Endpoint.Output" && this.endpointA.type === "Element.Handle") {
             return {
                 x: bX + t * (aX - bX),
                 y: bY + t * (aY - bY),
