@@ -5,6 +5,7 @@ const MESSAGE_RADIUS = 8;
 
 export class Message extends Element {
     time = 0;
+    timeNow = 0;
 
     origin = null;
     parentElement = null;
@@ -15,7 +16,7 @@ export class Message extends Element {
         super("Message", 0, 0, -1, -1, false, false);
         this.type += ".Message";
 
-        this.time = Date.now();
+        this.timeNow = Date.now();
 
         this.origin = origin;
         this.parentElement = origin;
@@ -23,7 +24,7 @@ export class Message extends Element {
 
     draw(ctx, Styles) {
         if (this.parentElement.type === "Element.Route") {
-            let pointOnRoute = this.parentElement.getPointOnRoute((Date.now() - this.time) / Route.delay);
+            let pointOnRoute = this.parentElement.getPointOnRoute((Date.now() - this.timeNow) / Route.delay);
 
             if (pointOnRoute) {
                 ctx.save();

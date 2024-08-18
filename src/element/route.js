@@ -18,7 +18,8 @@ export class Route extends Element {
         let previousElement = message.parentElement;
         message.set(this);
 
-        message.time = Date.now();
+        message.time += Route.delay;
+        message.timeNow = Date.now();
 
         setTimeout(() => {
             if (this.endpointA.type === this.endpointB.type) {

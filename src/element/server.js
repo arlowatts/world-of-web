@@ -25,7 +25,8 @@ export class Server extends Element {
     addMessage(message) {
         message.set(this);
 
-        message.time = Date.now();
+        message.time += Server.delay;
+        message.timeNow = Date.now();
 
         setTimeout(() => {
             if (this.output) {
