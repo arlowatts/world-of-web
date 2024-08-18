@@ -36,6 +36,15 @@ export class Handle extends Element {
                     this.deleted = true;
                     break;
                 }
+
+                // delete hanging routes
+                if (i === 0) {
+                    if (this.route.endpointA.type === "Element.Handle" && this.route.endpointB.type === "Element.Handle") {
+                        this.route.endpointA.deleted = true;
+                        this.route.endpointB.deleted = true;
+                        this.route.deleted = true;
+                    }
+                }
             }
         }
     }
