@@ -33,7 +33,7 @@ export class Handle extends Element {
                         Element.elements[i].route = this.route;
                     }
 
-                    this.route = null;
+                    this.deleted = true;
                     break;
                 }
             }

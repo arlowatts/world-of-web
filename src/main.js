@@ -28,9 +28,15 @@ function render(now) {
     drawGrid();
 
     // draw each element
-    Element.elements.forEach((element) => {
-        element.draw(ctx, Styles);
-    });
+    for (let i = 0; i < Element.elements.length; i++) {
+        if (Element.elements[i].deleted) {
+            Element.elements.splice(i, 1);
+            i--;
+            continue;
+        }
+
+        Element.elements[i].draw(ctx, Styles);
+    }
 
     // request the next animation frame
     requestAnimationFrame(render);

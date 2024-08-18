@@ -2,6 +2,8 @@ export class Element {
     static elements = [];
     static movingElement = null;
 
+    deleted = false;
+
     type = "Element";
     name = "";
 
