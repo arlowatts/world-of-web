@@ -1,0 +1,45 @@
+import { Element } from "./element.js";
+
+export class Account extends Element {
+    amount = 0;
+
+    constructor(name, x, y, amount) {
+        super(name, x, y, 0, 0, false, true);
+        this.type += ".Account";
+
+        this.amount = amount;
+    }
+
+    draw(ctx, Styles) {
+        ctx.save();
+
+        Styles.title(ctx);
+
+        // determine how to display the amount
+        let displayText = this.amount.toString();
+
+        if (displayText.length % 3) {
+            displayText = displayText.padStart(displayText.length - displayText.length % 3 + 3, " ");
+        }
+
+        displayText = displayText.replaceAll(/(...)/g, "$1,");
+        displayText = "$ " + displayText.substring(0, displayText.length - 1);
+
+        // determine the width and height of the box
+        let textMetrics = ctx.measureText(displayText);
+        this.width = textMetrics.width;
+        this.height = textMetrics.actualBoundingBoxDescent - textMetrics.actualBoundingBoxAscent;
+
+        // draw the box
+        Styles.box(ctx);
+        ctx.beginPath();
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
+
+        // render the text
+        Styles.title(ctx);
+        ctx.fillText(displayText, this.x, this.y);
+
+        ctx.restore();
+    }
+}

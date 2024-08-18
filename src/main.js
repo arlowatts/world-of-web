@@ -1,5 +1,6 @@
 import { Styles } from "./styles.js";
 import { Element } from "./element/element.js";
+import { Account } from "./element/account.js";
 import { Pane } from "./element/pane.js";
 import { Server } from "./element/server.js";
 import { Source } from "./element/source.js";
@@ -14,6 +15,7 @@ canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 
 // create the initial elements
+new Account("My Account", 20, 20, 0);
 new Server("Flip", 100, 100);
 new Server("Flop", 150, 150);
 new Source("Users", 100, window.innerHeight / 2, 1 / 1000);
