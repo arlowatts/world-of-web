@@ -1,7 +1,7 @@
 import { Element } from "./element.js";
 
 export class Route extends Element {
-    static delay = 1000;
+    static delay = 300;
 
     endpointA = null;
     endpointB = null;

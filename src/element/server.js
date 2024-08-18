@@ -6,6 +6,8 @@ const SERVER_WIDTH = 150;
 const SERVER_HEIGHT = 100;
 
 export class Server extends Element {
+    static delay = 500;
+
     output = null;
     inputs = [];
 
@@ -23,11 +25,15 @@ export class Server extends Element {
     addMessage(message) {
         message.set(this);
 
-        if (this.output) {
-            this.output.addMessage(message);
-        }
-        else {
-            message.fail();
-        }
+        message.time = Date.now();
+
+        setTimeout(() => {
+            if (this.output) {
+                this.output.addMessage(message);
+            }
+            else {
+                message.fail();
+            }
+        }, Server.delay);
     }
 }
