@@ -79,9 +79,16 @@ export class Element {
         ctx.restore();
     }
 
+    // return true if this Element contains the given Element, false otherwise
+    containsElement(element) {
+        return element.x > this.x && element.x + element.width < this.x + this.width
+            && element.y > this.y && element.y + element.height < this.y + this.height;
+    }
+
     // return true if this Element contains the given point, false otherwise
     containsPoint(point) {
-        return point.x > this.x && point.x < this.x + this.width && point.y > this.y && point.y < this.y + this.height;
+        return point.x > this.x && point.x < this.x + this.width
+            && point.y > this.y && point.y < this.y + this.height;
     }
 
     // return the top element under the given point
