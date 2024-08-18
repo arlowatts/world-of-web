@@ -1,7 +1,7 @@
 import { Styles } from "./styles.js";
-import { Element } from "./elements/element.js";
-import { Server } from "./elements/server.js";
-import { Source } from "./elements/source.js";
+import { Element } from "./element/element.js";
+import { Server } from "./element/server.js";
+import { Source } from "./element/source.js";
 
 // initialize the canvas
 const canvas = document.getElementById("canvas");
