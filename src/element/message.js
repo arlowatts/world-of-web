@@ -1,7 +1,7 @@
 import { Element } from "./element.js";
 import { Route } from "./route.js";
 
-const MESSAGE_RADIUS = 10;
+const MESSAGE_RADIUS = 8;
 
 export class Message extends Element {
     time = 0;
@@ -29,13 +29,12 @@ export class Message extends Element {
                 ctx.save();
 
                 // draw the circle
-                Styles.box(ctx);
+                Styles.paragraph(ctx);
                 ctx.beginPath();
 
                 ctx.arc(pointOnRoute.x, pointOnRoute.y, MESSAGE_RADIUS, 0, 2 * Math.PI);
 
                 ctx.fill();
-                ctx.stroke();
 
                 ctx.restore();
             }
