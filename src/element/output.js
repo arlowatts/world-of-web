@@ -6,6 +6,18 @@ export class Output extends Endpoint {
         this.type += ".Output";
     }
 
+    addMessage(message) {
+        message.parentElement = this;
+
+        if (this.route) {
+            this.route.addMessage(message);
+        }
+        else {
+            message.success = false;
+            message.origin.addMessage(message);
+        }
+    }
+
     draw(ctx, Styles) {
         super.draw(ctx, Styles);
 

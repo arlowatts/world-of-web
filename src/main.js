@@ -12,7 +12,7 @@ const ctx = canvas.getContext("2d");
 // create the initial elements
 new Server("Flip", 100, 100);
 new Server("Flop", 150, 150);
-new Source("Users", 100, window.innerHeight / 2);
+new Source("Users", 100, window.innerHeight / 2, 1000);
 
 // create the event listeners
 addEventListener("mousedown", mouseDown);

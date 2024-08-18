@@ -12,6 +12,11 @@ export class Route extends Element {
         this.endpointB = endpointB;
     }
 
+    addMessage(message) {
+        message.parentElement = this;
+        message.origin.addMessage(message);
+    }
+
     draw(ctx, Styles) {
         ctx.save();
 
