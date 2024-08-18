@@ -29,14 +29,14 @@ export class Account extends Element {
         Styles.title(ctx);
 
         // determine how to display the amount
-        let displayText = this.metrics.amount[0].toString();
+        let displayText = Math.round(this.metrics.amount[0]).toString();
 
         if (displayText.length % 3) {
             displayText = displayText.padStart(displayText.length - displayText.length % 3 + 3, " ");
         }
 
         displayText = displayText.replaceAll(/(...)/g, "$1,");
-        displayText = "$ " + displayText.substring(0, displayText.length - 1);
+        displayText = "$ " + displayText.substring(0, displayText.length - 1) + ".00";
 
         // determine the width and height of the box
         let textMetrics = ctx.measureText(displayText);
