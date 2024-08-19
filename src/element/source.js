@@ -12,7 +12,7 @@ const TIME_SMOOTHING = 0.5;
 export class Source extends Element {
     metrics = {
         message_rate: [0],
-        messages_failed_per_second: [0],
+        messages_failed: [0],
         message_time: [0],
     };
 
@@ -47,7 +47,7 @@ export class Source extends Element {
             this.output.addMessage(new Message(this));
         }
         else {
-            this.metrics.messages_failed_per_second[0]++;
+            this.metrics.messages_failed[0]++;
         }
 
         setTimeout(() => this.createMessage(), 1 / this.metrics.message_rate[0]);
@@ -61,7 +61,7 @@ export class Source extends Element {
         }
         else {
             this.metrics.message_rate[0] = Math.max(this.minMessageRate, this.metrics.message_rate[0] - 1 / 10000);
-            this.metrics.messages_failed_per_second[0]++;
+            this.metrics.messages_failed[0]++;
         }
 
         message.deleted = true;
@@ -70,7 +70,7 @@ export class Source extends Element {
     updateMetrics() {
         super.updateMetrics();
 
-        this.metrics.messages_failed_per_second[0] = 0;
+        this.metrics.messages_failed[0] = 0;
     }
 
     draw(ctx, Styles) {

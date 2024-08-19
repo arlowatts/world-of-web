@@ -12,9 +12,21 @@ export class Server extends Element {
     memoryPerMessage = 25;
 
     metrics = {
-        processing_time: [0],
+        processing_time: [1200],
         cpu: [0],
         memory: [0],
+    };
+
+    metricsMeta = {
+        processing_time: {
+            noPlot: true,
+        },
+        cpu: {
+            healthyLimit: 100,
+        },
+        memory: {
+            healthyLimit: 100,
+        },
     };
 
     output = null;
@@ -30,7 +42,7 @@ export class Server extends Element {
         this.endpoints.push(this.output);
         this.endpoints.push(...this.inputs);
 
-        new Upgrade("Upgrade processing time", this, 1, (level) => 50 * level, (level) => this.delay *= 0.75);
+        new Upgrade("Upgrade processing time", this, 1, (level) => 50 * level, (level) => { this.delay *= 0.75; this.metrics.processing_time[0] = this.delay; });
         new Upgrade("Upgrade CPU", this, 0, (level) => 25 * 2 ** level, (level) => { this.cpuPerMessage *= 0.75; this.metrics.cpu[0] *= 0.75; });
         new Upgrade("Upgrade memory", this, 1, (level) => 50, (level) => { this.memoryPerMessage = 50 / (level + 2); this.metrics.memory[0] *= (level + 1) / (level + 2); });
     }
@@ -44,7 +56,6 @@ export class Server extends Element {
         message.set(this);
 
         // update metrics
-        Element.smooth(this.metrics.processing_time, this.delay);
         this.metrics.cpu[0] += this.cpuPerMessage;
         this.metrics.memory[0] += this.memoryPerMessage;
 

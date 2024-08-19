@@ -31,6 +31,7 @@ export class Element {
     endpoints = [];
 
     metrics = {};
+    metricsMeta = {};
     upgrades = [];
 
     constructor(name, x, y, width, height, moveable, hasPane) {

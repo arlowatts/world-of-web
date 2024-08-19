@@ -18,6 +18,7 @@ export class Pane extends Element {
         this.type += ".Pane";
 
         this.metrics = parentElement.metrics;
+        this.metricsMeta = parentElement.metricsMeta;
         this.upgrades = parentElement.upgrades;
     }
 
@@ -43,8 +44,10 @@ export class Pane extends Element {
             ctx.fillText(key + ": " + Math.round(this.metrics[key][0] * 1000) / 1000, this.x + PADDING, textY);
             textY += ctx.measureText(key).actualBoundingBoxDescent + PADDING;
 
-            this.plot(ctx, Styles, this.metrics[key], this.x + PADDING, textY, this.width - 2 * PADDING, PLOT_HEIGHT);
-            textY += PLOT_HEIGHT + PADDING;
+            if (!this.metricsMeta[key] || !this.metricsMeta[key].noPlot) {
+                this.plot(ctx, Styles, key, this.metrics[key], this.x + PADDING, textY, this.width - 2 * PADDING, PLOT_HEIGHT);
+                textY += PLOT_HEIGHT + PADDING;
+            }
         });
 
         if (textY - this.y > this.height) {
@@ -57,7 +60,7 @@ export class Pane extends Element {
     }
 
     // plot an array of data
-    plot(ctx, Styles, data, x, y, width, height) {
+    plot(ctx, Styles, key, data, x, y, width, height) {
         ctx.save();
 
         let max = 0;
@@ -71,6 +74,9 @@ export class Pane extends Element {
 
         // plot the data
         Styles.paragraph(ctx);
+        if (this.metricsMeta[key] && this.metricsMeta[key].healthyLimit && max > this.metricsMeta[key].healthyLimit) {
+            Styles.modifyRed(ctx);
+        }
         ctx.beginPath();
 
         if (max > 0) {
