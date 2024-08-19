@@ -27,8 +27,8 @@ export class Source extends Element {
 
         this.metrics.message_rate[0] = rate;
 
-        this.output = new Output(this.width * 0.5, 0, this);
-        this.input = new Input(this.width * 0.5, this.height, this);
+        this.output = new Output(this.width * 0.8, this.height, this);
+        this.input = new Input(this.width * 0.2, this.height, this);
 
         this.endpoints.push(this.output);
         this.endpoints.push(this.input);
@@ -67,5 +67,48 @@ export class Source extends Element {
         super.updateMetrics();
 
         this.metrics.messages_failed_per_second[0] = 0;
+    }
+
+    draw(ctx, Styles) {
+        ctx.save();
+
+        // fill and outline the box
+        Styles.box(ctx);
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
+
+        Styles.paragraph(ctx);
+
+        let radius = Math.min(this.height, this.height) * 0.375;
+
+        // draw the outer circle
+        ctx.beginPath();
+        ctx.arc(this.x + this.width * 0.5, this.y + this.height * 0.5, radius, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        // draw the inner curve
+        ctx.beginPath();
+        ctx.ellipse(this.x + this.width * 0.5, this.y + this.height * 0.5, radius * 0.5, radius, 0, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+
+        // draw the center vertical line
+        ctx.moveTo(this.x + this.width * 0.5, this.y + this.height * 0.5 - radius);
+        ctx.lineTo(this.x + this.width * 0.5, this.y + this.height * 0.5 + radius);
+
+        // draw the center horizontal line
+        ctx.moveTo(this.x + this.width * 0.5 - radius, this.y + this.height * 0.5);
+        ctx.lineTo(this.x + this.width * 0.5 + radius, this.y + this.height * 0.5);
+
+        // draw the other horizontal lines
+        ctx.moveTo(this.x + this.width * 0.5 - radius * Math.cos(0.5), this.y + this.height * 0.5 - radius * Math.sin(0.5));
+        ctx.lineTo(this.x + this.width * 0.5 + radius * Math.cos(0.5), this.y + this.height * 0.5 - radius * Math.sin(0.5));
+        ctx.moveTo(this.x + this.width * 0.5 - radius * Math.cos(0.5), this.y + this.height * 0.5 + radius * Math.sin(0.5));
+        ctx.lineTo(this.x + this.width * 0.5 + radius * Math.cos(0.5), this.y + this.height * 0.5 + radius * Math.sin(0.5));
+
+        ctx.stroke();
+
+        ctx.restore();
     }
 }

@@ -4,7 +4,7 @@ import { Input } from "./input.js";
 import { Upgrade } from "./upgrade.js";
 
 const SERVER_WIDTH = 150;
-const SERVER_HEIGHT = 100;
+const SERVER_HEIGHT = 75;
 
 export class Server extends Element {
     delay = 700;
@@ -24,8 +24,8 @@ export class Server extends Element {
         super(name, x, y, SERVER_WIDTH, SERVER_HEIGHT, true, true);
         this.type += ".Server";
 
-        this.output = new Output(this.width * 0.5, 0, this);
-        this.inputs.push(new Input(this.width * 0.5, this.height, this));
+        this.output = new Output(this.width * 0.65, this.height, this);
+        this.inputs.push(new Input(this.width * 0.35, this.height, this));
 
         this.endpoints.push(this.output);
         this.endpoints.push(...this.inputs);

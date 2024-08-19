@@ -16,13 +16,18 @@ export class Input extends Endpoint {
 
         ctx.save();
 
-        // draw the minus sign
+        // draw the arrow
         Styles.title(ctx);
+
         ctx.beginPath();
+        ctx.moveTo(this.x + this.width * 0.5, this.y + this.height * 0.8);
+        ctx.lineTo(this.x + this.width * 0.5, this.y + this.height * 0.2);
+        ctx.stroke();
 
-        ctx.moveTo(this.x + this.width * 0.2, this.y + this.height * 0.5);
-        ctx.lineTo(this.x + this.width * 0.8, this.y + this.height * 0.5);
-
+        ctx.beginPath();
+        ctx.moveTo(this.x + this.width * 0.8, this.y + this.height * 0.5);
+        ctx.lineTo(this.x + this.width * 0.5, this.y + this.height * 0.2);
+        ctx.lineTo(this.x + this.width * 0.2, this.y + this.height * 0.5);
         ctx.stroke();
 
         ctx.restore();
