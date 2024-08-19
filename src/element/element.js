@@ -25,10 +25,12 @@ export class Element {
 
     moveable = false;
     hasPane = true;
+    show = true;
 
     endpoints = [];
 
     metrics = {};
+    upgrades = [];
 
     constructor(name, x, y, width, height, moveable, hasPane) {
         Element.elements.push(this);
@@ -142,7 +144,8 @@ export class Element {
     // return true if this Element touches the given Element, false otherwise
     touchesElement(element) {
         return element.x + element.width > this.x && element.x < this.x + this.width
-            && element.y + element.height > this.y && element.y < this.y + this.height;
+            && element.y + element.height > this.y && element.y < this.y + this.height
+            && element.show && this.show;
     }
 
     // return true if this Element contains the given Element, false otherwise
@@ -179,9 +182,11 @@ export class Element {
     // return the top element under the given point
     static findUnderPoint(point) {
         for (let i = Element.elements.length - 1; i >= 0; i--) {
-            if (Element.elements[i].containsPoint(point)) {
+            if (Element.elements[i].show && Element.elements[i].containsPoint(point)) {
                 return Element.elements[i];
             }
         }
     }
+
+    remove() {}
 }

@@ -1,6 +1,7 @@
 import { Element } from "./element.js";
 import { Output } from "./output.js";
 import { Input } from "./input.js";
+import { Upgrade } from "./upgrade.js";
 
 const SERVER_WIDTH = 150;
 const SERVER_HEIGHT = 100;
@@ -29,6 +30,9 @@ export class Server extends Element {
 
         this.endpoints.push(this.output);
         this.endpoints.push(...this.inputs);
+
+        new Upgrade("Upgrade CPU", this, 0, (level) => 50 * 2 ** level, (level) => this.cpuPerMessage *= 0.75);
+        new Upgrade("Upgrade memory", this, 1, (level) => 100, (level) => this.memoryPerMessage = 10 / (level + 2));
     }
 
     addMessage(message) {
