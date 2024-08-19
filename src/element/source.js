@@ -16,6 +16,8 @@ export class Source extends Element {
         message_time: [0],
     };
 
+    minMessageRate = 0;
+
     output = null;
     input = null;
 
@@ -25,6 +27,7 @@ export class Source extends Element {
         super(name, x, y, SOURCE_WIDTH, SOURCE_HEIGHT, true, true);
         this.type += ".Source";
 
+        this.minMessageRate = rate;
         this.metrics.message_rate[0] = rate;
 
         this.output = new Output(this.width * 0.8, this.height, this);
@@ -57,6 +60,7 @@ export class Source extends Element {
             Element.account.add(1);
         }
         else {
+            this.metrics.message_rate[0] = Math.max(this.minMessageRate, this.metrics.message_rate[0] - 1 / 10000);
             this.metrics.messages_failed_per_second[0]++;
         }
 
