@@ -7,9 +7,9 @@ const SERVER_WIDTH = 150;
 const SERVER_HEIGHT = 75;
 
 export class Server extends Element {
-    delay = 700;
-    cpuPerMessage = 60;
-    memoryPerMessage = 30;
+    delay = 1200;
+    cpuPerMessage = 40;
+    memoryPerMessage = 25;
 
     metrics = {
         processingTime: [0],
@@ -30,13 +30,13 @@ export class Server extends Element {
         this.endpoints.push(this.output);
         this.endpoints.push(...this.inputs);
 
-        new Upgrade("Upgrade processing time", this, 1, (level) => 100 * level, (level) => this.delay *= 0.5);
-        new Upgrade("Upgrade CPU", this, 0, (level) => 50 * 2 ** level, (level) => { this.cpuPerMessage *= 0.75; this.metrics.cpu[0] *= 0.75; });
-        new Upgrade("Upgrade memory", this, 1, (level) => 100, (level) => { this.memoryPerMessage = 10 / (level + 2); this.metrics.memory[0] *= (level + 2) / (level = 1); });
+        new Upgrade("Upgrade processing time", this, 1, (level) => 50 * level, (level) => this.delay *= 0.5);
+        new Upgrade("Upgrade CPU", this, 0, (level) => 25 * 2 ** level, (level) => { this.cpuPerMessage *= 0.75; this.metrics.cpu[0] *= 0.75; });
+        new Upgrade("Upgrade memory", this, 1, (level) => 50, (level) => { this.memoryPerMessage = 10 / (level + 2); this.metrics.memory[0] *= (level + 2) / (level + 1); });
     }
 
     addMessage(message) {
-        if (this.metrics.cpu[0] >= 100 || this.metrics.memory[0] >= 100) {
+        if (!this.healthy) {
             message.fail();
             return;
         }
@@ -47,6 +47,10 @@ export class Server extends Element {
         Element.smooth(this.metrics.processingTime, this.delay);
         this.metrics.cpu[0] += this.cpuPerMessage;
         this.metrics.memory[0] += this.memoryPerMessage;
+
+        if (this.metrics.cpu[0] >= 100 || this.metrics.memory[0] >= 100) {
+            this.healthy = false;
+        }
 
         message.time += this.delay;
         message.timeNow = Date.now();
@@ -61,6 +65,10 @@ export class Server extends Element {
 
             this.metrics.cpu[0] -= this.cpuPerMessage;
             this.metrics.memory[0] -= this.memoryPerMessage;
+
+            if (this.metrics.cpu[0] < 100 && this.metrics.memory[0] < 100) {
+                this.healthy = true;
+            }
         }, this.delay);
     }
 }

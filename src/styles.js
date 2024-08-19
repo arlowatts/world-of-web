@@ -1,7 +1,9 @@
-const BLACK = "rgb(0 0 0)";
-const GREEN = "rgb(100 200 100)";
-const DARK_GREEN = "rgb(50 100 50)";
-const PURPLE = "rgb(200 100 200)";
+const BLACK = "#000000";
+const GREEN = "#64c864";
+const DARK_GREEN = "#326432";
+const PURPLE = "#c864c8";
+const RED = "#c86464";
+const DARK_RED = "#643232";
 
 export class Styles {
     static box(ctx) {
@@ -38,5 +40,21 @@ export class Styles {
         ctx.fillStyle = PURPLE;
         ctx.strokeStyle = PURPLE;
         ctx.lineWidth = 2;
+    }
+
+    static modifyRed(ctx) {
+        if (ctx.fillStyle === GREEN) {
+            ctx.fillStyle = RED;
+        }
+        else if (ctx.fillStyle === DARK_GREEN) {
+            ctx.fillStyle = DARK_RED;
+        }
+
+        if (ctx.strokeStyle === GREEN) {
+            ctx.strokeStyle = RED;
+        }
+        else if (ctx.strokeStyle === DARK_GREEN) {
+            ctx.strokeStyle = DARK_RED;
+        }
     }
 }

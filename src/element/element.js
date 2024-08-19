@@ -26,6 +26,7 @@ export class Element {
     moveable = false;
     hasPane = true;
     show = true;
+    healthy = true;
 
     endpoints = [];
 
@@ -106,20 +107,24 @@ export class Element {
 
         // fill the background
         Styles.box(ctx);
+        if (!this.healthy) Styles.modifyRed(ctx);
         ctx.fillRect(this.x, this.y, this.width, this.height);
 
         // draw the title
         Styles.title(ctx);
+        if (!this.healthy) Styles.modifyRed(ctx);
         let titleMetrics = ctx.measureText(this.name);
         ctx.fillText(this.name, this.x - titleMetrics.actualBoundingBoxLeft, this.y);
 
         // draw the subtitle
         Styles.subtitle(ctx);
+        if (!this.healthy) Styles.modifyRed(ctx);
         let subtitleMetrics = ctx.measureText(this.type);
         ctx.fillText(this.type, this.x - subtitleMetrics.actualBoundingBoxLeft, this.y + titleMetrics.actualBoundingBoxDescent);
 
         // draw the box
         Styles.box(ctx);
+        if (!this.healthy) Styles.modifyRed(ctx);
         ctx.beginPath();
 
         // draw the main outline

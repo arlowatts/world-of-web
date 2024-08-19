@@ -17,7 +17,7 @@ const ctx = canvas.getContext("2d");
 // create the initial elements
 new Account("My Account", 20, 20, 50);
 new Server("My Server", 300, 200);
-new Source("Users", 100, 200, 1 / 1000);
+new Source("Users", 100, 200, 1 / 500);
 
 // store the position of the last mouseDown event
 let mouseDownPoint = {

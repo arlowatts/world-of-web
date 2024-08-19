@@ -33,7 +33,7 @@ export class Source extends Element {
         this.endpoints.push(this.output);
         this.endpoints.push(this.input);
 
-        new Upgrade("Upgrade message rate", this, 0, (level) => 10 * 1.5 ** level, (level) => { this.metrics.message_rate[0] *= 1.2; clearInterval(this.interval); this.interval = setInterval(() => this.createMessage(), 1 / this.metrics.message_rate[0]); });
+        new Upgrade("Upgrade message rate", this, 0, (level) => 10, (level) => { this.metrics.message_rate[0] += 1 / 1000; clearInterval(this.interval); this.interval = setInterval(() => this.createMessage(), 1 / this.metrics.message_rate[0]); });
 
         if (this.metrics.message_rate[0]) {
             this.interval = setInterval(() => this.createMessage(), 1 / this.metrics.message_rate[0]);
