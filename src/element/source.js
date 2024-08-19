@@ -21,8 +21,6 @@ export class Source extends Element {
     output = null;
     input = null;
 
-    interval = null;
-
     constructor(name, x, y, rate) {
         super(name, x, y, SOURCE_WIDTH, SOURCE_HEIGHT, true, true);
         this.type += ".Source";
@@ -36,10 +34,10 @@ export class Source extends Element {
         this.endpoints.push(this.output);
         this.endpoints.push(this.input);
 
-        new Upgrade("Upgrade message rate", this, 0, (level) => 10, (level) => { this.metrics.message_rate[0] += 1 / 1000; clearInterval(this.interval); this.interval = setInterval(() => this.createMessage(), 1 / this.metrics.message_rate[0]); });
+        new Upgrade("Upgrade message rate", this, 0, (level) => 10, (level) => this.metrics.message_rate[0] += 1 / 1000);
 
         if (this.metrics.message_rate[0]) {
-            this.interval = setInterval(() => this.createMessage(), 1 / this.metrics.message_rate[0]);
+            this.createMessage();
         }
     }
 
@@ -51,6 +49,8 @@ export class Source extends Element {
         else {
             this.metrics.messages_failed_per_second[0]++;
         }
+
+        setTimeout(() => this.createMessage(), 1 / this.metrics.message_rate[0]);
     }
 
     addMessage(message) {
