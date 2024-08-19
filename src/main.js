@@ -15,10 +15,9 @@ canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 
 // create the initial elements
-new Account("My Account", 20, 20, 0);
-new Server("Flip", 100, 100);
-new Server("Flop", 150, 150);
-new Source("Users", 100, window.innerHeight / 2, 1 / 1000);
+new Account("My Account", 20, 20, 50);
+new Server("My Server", 300, 200);
+new Source("Users", 100, 200, 1 / 1000);
 
 // store the position of the last mouseDown event
 let mouseDownPoint = {

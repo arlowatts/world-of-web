@@ -44,9 +44,11 @@ export class Upgrade extends Element {
     draw(ctx, Styles) {
         ctx.save();
 
+        let displayText = this.name + " $" + Math.round(this.cost() * 100) / 100;
+
         // measure text to set the width
         Styles.paragraph(ctx);
-        let textMetrics = ctx.measureText(this.name + " $" + this.cost());
+        let textMetrics = ctx.measureText(displayText);
         this.width = textMetrics.width + 2 * PADDING;
 
         // fill background
@@ -56,7 +58,7 @@ export class Upgrade extends Element {
         // render box outline and text
         Styles.paragraph(ctx);
         ctx.strokeRect(this.x, this.y, this.width, this.height);
-        ctx.fillText(this.name + " $" + this.cost(), this.x + PADDING, this.y + PADDING);
+        ctx.fillText(displayText, this.x + PADDING, this.y + PADDING);
 
         ctx.restore();
     }

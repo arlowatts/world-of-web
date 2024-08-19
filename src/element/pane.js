@@ -40,7 +40,7 @@ export class Pane extends Element {
 
         // draw the metrics in the pane
         Object.keys(this.metrics).forEach((key) => {
-            ctx.fillText(key + ": " + Math.round(this.metrics[key][0]), this.x + PADDING, textY);
+            ctx.fillText(key + ": " + Math.round(this.metrics[key][0] * 1000) / 1000, this.x + PADDING, textY);
             textY += ctx.measureText(key).actualBoundingBoxDescent + PADDING;
 
             this.plot(ctx, Styles, this.metrics[key], this.x + PADDING, textY, this.width - 2 * PADDING, PLOT_HEIGHT);
