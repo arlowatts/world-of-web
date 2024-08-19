@@ -25,6 +25,14 @@ export class Upgrade extends Element {
         this.show = false;
     }
 
+    mouseClick(point) {
+        if (Element.account.get() >= this.cost()) {
+            Element.account.add(-this.cost());
+            this.upgrade();
+            this.level++;
+        }
+    }
+
     cost() {
         return this.costFunction(this.level);
     }

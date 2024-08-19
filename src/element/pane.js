@@ -1,7 +1,7 @@
 import { Element } from "./element.js";
 
 const PADDING = 20;
-const PLOT_HEIGHT = 200;
+const PLOT_HEIGHT = 100;
 
 const PANE_WIDTH_RATIO = 4;
 const PANE_HEIGHT_RATIO = 1;
@@ -19,21 +19,20 @@ export class Pane extends Element {
 
         this.metrics = parentElement.metrics;
         this.upgrades = parentElement.upgrades;
-
-        let upgradeY = this.y;
-
-        for (let i = 0; i < this.upgrades.length; i++) {
-            this.upgrades[i].x = this.x + PADDING;
-            this.upgrades[i].y = upgradeY;
-
-            upgradeY += this.upgrades[i].height + PADDING;
-
-            this.upgrades[i].show = true;
-        }
     }
 
     draw(ctx, Styles) {
         let textY = super.draw(ctx, Styles) + PADDING;
+
+        for (let i = 0; i < this.upgrades.length; i++) {
+            this.upgrades[i].x = this.x + PADDING;
+            this.upgrades[i].y = textY;
+
+            textY += this.upgrades[i].height + PADDING;
+
+            this.upgrades[i].show = true;
+            this.upgrades[i].toTop();
+        }
 
         ctx.save();
 

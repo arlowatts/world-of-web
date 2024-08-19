@@ -23,6 +23,10 @@ export class Account extends Element {
         this.metrics.amount[0] += amount;
     }
 
+    get() {
+        return this.metrics.amount[0];
+    }
+
     draw(ctx, Styles) {
         ctx.save();
 
