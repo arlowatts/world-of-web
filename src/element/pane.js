@@ -77,6 +77,7 @@ export class Pane extends Element {
         if (this.metricsMeta[key] && this.metricsMeta[key].healthyLimit && max > this.metricsMeta[key].healthyLimit) {
             Styles.modifyRed(ctx);
         }
+
         ctx.beginPath();
 
         if (max > 0) {
