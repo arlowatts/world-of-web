@@ -33,7 +33,7 @@ export class Account extends Element {
         Styles.title(ctx);
 
         // determine how to display the amount
-        let displayText = (Math.round(this.metrics.amount[0] * 100) / 100).toString();
+        let displayText = (Math.round(this.metrics.amount[0] * 100) / 100).toFixed(2);
 
         if (displayText.length % 3) {
             displayText = displayText.padStart(displayText.length - displayText.length % 3 + 3, " ");

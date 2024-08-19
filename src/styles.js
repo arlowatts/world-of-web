@@ -1,7 +1,6 @@
 const BLACK = "#000000";
 const GREEN = "#64c864";
 const DARK_GREEN = "#326432";
-const PURPLE = "#c864c8";
 const RED = "#c86464";
 const DARK_RED = "#643232";
 
@@ -36,9 +35,9 @@ export class Styles {
         ctx.textBaseline = "top";
     }
 
-    static message(ctx) {
-        ctx.fillStyle = PURPLE;
-        ctx.strokeStyle = PURPLE;
+    static message(ctx, value) {
+        ctx.fillStyle = `rgb(${value * 200 + 56} ${value * 100 + 28} ${value * 200 + 56})`;
+        ctx.strokeStyle = `rgb(${value * 200 + 56} ${value * 100 + 28} ${value * 200 + 56})`;
         ctx.lineWidth = 2;
     }
 

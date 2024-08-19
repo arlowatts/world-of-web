@@ -12,6 +12,11 @@ export class Message extends Element {
 
     success = true;
 
+    serverCount = 0;
+    databaseCount = 0;
+    firewallCount = 0;
+    value = 0;
+
     constructor(origin) {
         super("Message", 0, 0, -1, -1, false, false);
         this.type += ".Message";
@@ -30,7 +35,7 @@ export class Message extends Element {
                 ctx.save();
 
                 // draw the circle
-                Styles.message(ctx);
+                Styles.message(ctx, 1 - 1 / (this.value / this.time + 1));
                 ctx.beginPath();
 
                 ctx.arc(pointOnRoute.x, pointOnRoute.y, MESSAGE_RADIUS, 0, 2 * Math.PI);
@@ -43,6 +48,19 @@ export class Message extends Element {
     }
 
     set(element) {
+        if (this.parentElement.type === "Element.Server") {
+            this.serverCount++;
+            this.value += 1000 / this.serverCount;
+        }
+        else if (this.parentElement.type === "Element.Server.Database") {
+            this.databaseCount++;
+            this.value += 1000 * this.serverCount / this.databaseCount;
+        }
+        else if (this.parentElement.type === "Element.Server.Firewall") {
+            this.firewallCount++;
+            this.value += 1000 / this.firewallCount ** 2;
+        }
+
         this.parentElement = element;
     }
 

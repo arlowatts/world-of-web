@@ -57,7 +57,7 @@ export class Source extends Element {
         Element.smooth(this.metrics.message_time, message.time);
 
         if (message.success) {
-            Element.account.add(1);
+            Element.account.add(message.value / message.time);
         }
         else {
             this.metrics.message_rate[0] = Math.max(this.minMessageRate, this.metrics.message_rate[0] - 1 / 10000);
