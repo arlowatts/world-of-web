@@ -6,6 +6,9 @@ import { Upgrade } from "./upgrade.js";
 const SERVER_WIDTH = 150;
 const SERVER_HEIGHT = 75;
 
+const FIRST_WORD = ["shy", "glad", "fun", "free", "warm", "good", "best", "blue", "red", "aqua", "teal", "safe"];
+const SECOND_WORD = ["dog", "cat", "clam", "tree", "fish", "fly", "frog", "rat", "bird", "wolf", "lion", "bug"];
+
 export class Server extends Element {
     description = "A Server adds value to a request. Each Server adds less value than the previous one in the network.";
 
@@ -43,7 +46,7 @@ export class Server extends Element {
     audio = null;
 
     constructor(name, x, y) {
-        super(name, x, y, SERVER_WIDTH, SERVER_HEIGHT, true, true);
+        super(name ? name : Server.randomName(), x, y, SERVER_WIDTH, SERVER_HEIGHT, true, true);
         this.type += ".Server";
 
         this.outputs.push(new Output(this.width * 0.65, this.height, this));
@@ -120,5 +123,9 @@ export class Server extends Element {
                 this.healthy = true;
             }
         }, this.delay);
+    }
+
+    static randomName() {
+        return FIRST_WORD[Math.floor(Math.random() * FIRST_WORD.length)] + "-" + SECOND_WORD[Math.floor(Math.random() * SECOND_WORD.length)];
     }
 }
