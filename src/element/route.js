@@ -38,6 +38,10 @@ export class Route extends Element {
     }
 
     getPointOnRoute(t) {
+        if (t < -0.5 || t > 1.5) {
+            return null;
+        }
+
         let aX = this.endpointA.x + this.endpointA.width * 0.5;
         let aY = this.endpointA.y + this.endpointA.height * 0.5;
         let bX = this.endpointB.x + this.endpointB.width * 0.5;

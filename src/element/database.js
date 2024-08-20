@@ -5,6 +5,8 @@ import { Upgrade } from "./upgrade.js";
 import { Server } from "./server.js";
 
 export class Database extends Server {
+    description = "The Database isn't worth anything on its own, but it adds value to all of the servers that come before it in the network.";
+
     delay = 2000;
     minDelay = 250;
     cpuPerMessage = 10;

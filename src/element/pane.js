@@ -44,20 +44,40 @@ export class Pane extends Element {
         if (this.parentElement.description) {
             Styles.paragraph(ctx);
 
-            let lines = [""];
+            let lines = [" "];
             let descentPerLine = Pane.wrapText(ctx, this.parentElement.description, this.width - 2 * PADDING, lines, 0);
 
             for (let i = 0; i < lines.length; i++) {
                 ctx.fillText(lines[i], this.x + PADDING, textY);
                 textY += descentPerLine;
             }
+
+            textY += descentPerLine;
         }
 
         Styles.paragraph(ctx);
 
         // draw the metrics in the pane
         Object.keys(this.metrics).forEach((key) => {
-            ctx.fillText(key + ": " + Math.round(this.metrics[key][0] * 1000) / 1000, this.x + PADDING, textY);
+            let value = this.metrics[key][0];
+
+            if (this.metricsMeta[key] && this.metricsMeta[key].scale) {
+                value *= this.metricsMeta[key].scale;
+            }
+
+            let displayText = key + ": ";
+
+            if (this.metricsMeta[key] && this.metricsMeta[key].prefix) {
+                displayText += this.metricsMeta[key].prefix;
+            }
+
+            displayText += Math.round(value * 100) / 100;
+
+            if (this.metricsMeta[key] && this.metricsMeta[key].suffix) {
+                displayText += this.metricsMeta[key].suffix;
+            }
+
+            ctx.fillText(displayText, this.x + PADDING, textY);
             textY += ctx.measureText(key).actualBoundingBoxDescent + PADDING;
 
             if (!this.metricsMeta[key] || !this.metricsMeta[key].noPlot) {
@@ -138,7 +158,7 @@ export class Pane extends Element {
         for (let i = 0; i < words.length; i++) {
             let textMetrics = ctx.measureText(lines[currentLine] + " " + words[i]);
 
-            if (textMetrics.width <= width) {
+            if (textMetrics.width <= width && words[i] !== "\n") {
                 lines[currentLine] += " " + words[i];
             }
             else {

@@ -26,10 +26,10 @@ export class Account extends Element {
 
         Element.account = this;
 
-        new Upgrade("Server", this, 0, (level) => 200, (level) => new Server("My Server", 100, 100));
-        new Upgrade("Database", this, 1, (level) => 150 * level, (level) => new Database("My Database", 100, 100));
-        new Upgrade("Load Balancer", this, 0, (level) => 50, (level) => new LoadBalancer("My Load Balancer", 100, 100));
-        new Upgrade("Firewall", this, 0, (level) => 25, (level) => new Firewall("My Firewall", 100, 100));
+        new Upgrade("Server", this, 0, (level) => 100 * level, (level) => new Server("My Server", 100, 100));
+        new Upgrade("Database", this, 0, (level) => 150 + 50 * level, (level) => new Database("My Database", 100, 100));
+        new Upgrade("Load Balancer", this, 0, (level) => 25, (level) => new LoadBalancer("My Load Balancer", 100, 100));
+        new Upgrade("Firewall", this, 0, (level) => 500, (level) => new Firewall("My Firewall", 100, 100));
     }
 
     add(amount) {

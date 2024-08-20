@@ -1,3 +1,5 @@
+const PADDING = 10;
+
 const METRIC_TIME = 1000;
 const METRIC_RETENTION = 60;
 
@@ -120,13 +122,14 @@ export class Element {
         Styles.title(ctx);
         if (!this.healthy) Styles.modifyRed(ctx);
         let titleMetrics = ctx.measureText(this.name);
-        ctx.fillText(this.name, this.x - titleMetrics.actualBoundingBoxLeft, this.y);
+        ctx.fillText(this.name, this.x + PADDING, this.y + PADDING);
 
         // draw the subtitle
         Styles.subtitle(ctx);
         if (!this.healthy) Styles.modifyRed(ctx);
-        let subtitleMetrics = ctx.measureText(this.type);
-        ctx.fillText(this.type, this.x - subtitleMetrics.actualBoundingBoxLeft, this.y + titleMetrics.actualBoundingBoxDescent);
+        let subtitle = this.type.match(/[a-zA-Z]+$/g)[0];
+        let subtitleMetrics = ctx.measureText(subtitle);
+        ctx.fillText(subtitle, this.x + PADDING, this.y + titleMetrics.actualBoundingBoxDescent + PADDING * 2);
 
         // draw the box
         Styles.box(ctx);
@@ -141,7 +144,7 @@ export class Element {
         ctx.lineTo(this.x, this.y);
 
         // draw the line under the subtitle
-        let underlineY = this.y - titleMetrics.actualBoundingBoxAscent + titleMetrics.actualBoundingBoxDescent + subtitleMetrics.actualBoundingBoxDescent;
+        let underlineY = this.y + titleMetrics.actualBoundingBoxDescent + subtitleMetrics.actualBoundingBoxDescent + PADDING * 3;
         ctx.moveTo(this.x, underlineY);
         ctx.lineTo(this.x + this.width, underlineY);
 

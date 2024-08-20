@@ -15,9 +15,11 @@ export class Message extends Element {
     serverCount = 0;
     databaseCount = 0;
     firewallCount = 0;
-    value = 0;
 
-    constructor(origin) {
+    value = 0;
+    expectedValue = 0;
+
+    constructor(origin, expectedValue) {
         super("Message", 0, 0, -1, -1, false, false, true);
         Element.messages.push(this);
         this.type += ".Message";
@@ -26,6 +28,8 @@ export class Message extends Element {
 
         this.origin = origin;
         this.parentElement = origin;
+
+        this.expectedValue = expectedValue;
     }
 
     draw(ctx, Styles) {
@@ -46,14 +50,17 @@ export class Message extends Element {
 
                 ctx.restore();
             }
+            else {
+                this.fail();
+            }
         }
     }
 
     set(element) {
         if (this.parentElement.type === "Element.Server") {
             this.serverCount++;
-            this.value += 1500;
-            this.value += 100 * this.firewallCount;
+            this.value += 1500 * (1 + 0.5 / this.serverCount);
+            this.value += 500 * Math.sqrt(this.firewallCount);
         }
         else if (this.parentElement.type === "Element.Server.Database") {
             this.databaseCount++;

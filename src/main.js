@@ -19,14 +19,16 @@ const ctx = canvas.getContext("2d");
 
 // create the initial elements
 new Account("My Account", 85, 20, 50);
-new Tutorial(20, 20);
-new Server("My Server", 300, 200);
+let tutorial = new Tutorial(20, 20);
+new Server("My Server", 200, 300);
 
-let sourceOutput = new Source("Users", 100, 200, 1 / 800).output;
+let sourceOutput = new Source("Internet", 100, 200, 1 / 800).output;
 sourceOutput.mouseDown({ x: sourceOutput.x + 1, y: sourceOutput.y + 1 });
 Element.movingElement.x = 150;
 Element.movingElement.y = 350;
 Element.movingElement = null;
+
+tutorial.mouseClick({ x: 0, y: 0 });
 
 // store the position of the last mouseDown event
 let mouseDownPoint = {

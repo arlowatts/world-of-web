@@ -7,6 +7,8 @@ const SERVER_WIDTH = 150;
 const SERVER_HEIGHT = 75;
 
 export class Server extends Element {
+    description = "A Server adds value to a request. Each Server adds less value than the previous one in the network.";
+
     delay = 1200;
     minDelay = 400;
     cpuPerMessage = 40;
@@ -21,12 +23,16 @@ export class Server extends Element {
     metricsMeta = {
         processing_time: {
             noPlot: true,
+            scale: 0.001,
+            suffix: "s",
         },
         cpu: {
             healthyLimit: 100,
+            suffix: "%",
         },
         memory: {
             healthyLimit: 100,
+            suffix: "%",
         },
     };
 

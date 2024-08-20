@@ -5,6 +5,8 @@ import { Upgrade } from "./upgrade.js";
 import { Server } from "./server.js";
 
 export class LoadBalancer extends Server {
+    description = "Load Balancers have two inputs and two outputs, so they're useful for splitting or merging multiple streams. Use them liberally!";
+
     delay = 100;
     minDelay = 50;
     cpuPerMessage = 3;

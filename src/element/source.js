@@ -21,6 +21,17 @@ export class Source extends Element {
         messages_failed: {
             noPlot: true,
         },
+        message_rate: {
+            scale: 1000,
+            suffix: "/s",
+        },
+        message_value: {
+            prefix: "$",
+        },
+        message_time: {
+            suffix: "s",
+            scale: 0.001,
+        },
     };
 
     minMessageRate = 0;
@@ -51,7 +62,7 @@ export class Source extends Element {
     // create a new message and send it to the output endpoint
     createMessage() {
         if (this.output) {
-            this.output.addMessage(new Message(this));
+            this.output.addMessage(new Message(this, this.metrics.message_rate[0] * 500));
         }
         else {
             this.metrics.messages_failed[0]++;
@@ -67,7 +78,7 @@ export class Source extends Element {
             Element.account.add(message.value / message.time);
             Element.smooth(this.metrics.message_value, message.value / message.time);
 
-            if (message.value / message.time < this.metrics.message_rate[0] * 50) {
+            if (message.value / message.time < Math.min(message.expectedValue, this.metrics.message_rate[0] * 500)) {
                 this.metrics.message_rate[0] = Math.max(this.minMessageRate, this.metrics.message_rate[0] - 1 / 10000);
             }
         }
