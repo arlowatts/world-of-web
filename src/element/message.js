@@ -60,7 +60,7 @@ export class Message extends Element {
         if (this.parentElement.type === "Element.Server") {
             this.serverCount++;
             this.value += 1500 * (0.5 + 0.5 * this.serverCount);
-            this.value += 500 * Math.sqrt(this.firewallCount);
+            this.value += 1000 * Math.sqrt(this.firewallCount);
         }
         else if (this.parentElement.type === "Element.Server.Database") {
             this.databaseCount++;

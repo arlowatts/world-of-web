@@ -12,9 +12,9 @@ export class Tutorial extends Element {
         "Nicely done! Now the messages are flowing into the server, but you still need to get them back to the Internet. \n \n Drag a new route from the server's output (the down arrow) to the Internet's input (the up arrow).",
         "Brilliant! Now you're successfully serving web requests from the Internet. This is good, but we can do better. \n \n Click on the Internet and click [Upgrade message rate]. Then come back here by clicking the [?] at the top of the screen.",
         "Now the requests are coming in more quickly than before. So quickly that your server is struggling to keep up! \n \n Click on the server and click [Upgrade CPU] to boost it. \n \n Then, when you're ready, I'll show you how to buy new stuff.",
-        "See your account balance at the top of the screen? You earn a bit of cash for every request you complete. \n \n You earn more for requests that complete faster or take a more complex path. If a request fails, takes too long, or the path is too simple, the message rate will go down. Let's make this path more interesting now.",
-        "Click on your account balance and, from the menu, buy a new server. This one's on me. \n \n Put it wherever you want, then disconnect the routes and rejoin them to the new server. Remember, outputs can only connect to inputs.",
-        "Keep upgrading your servers and your message rate to increase your profit. Buy a Database, a Load Balancer, and a Firewall from the account menu and see what they do. \n \n Good luck!",
+        "See your account balance at the top of the screen? You earn a bit of cash for every request you complete. \n \n You earn more for requests that complete faster or take a more complex path. \n \n If a request fails, takes too long, or the path is too simple, the message rate will go down. Let's make this path more interesting now.",
+        "Click on your account balance at the top of the screen (the amount of money you have) and, from the menu, buy a new server. This one's on me. \n \n Put it wherever you want, then disconnect the routes and rejoin them to the new server. Remember, outputs can only connect to inputs.",
+        "Keep upgrading your servers and your message rate to increase your profit. Buy a Database, a Load Balancer, and a Firewall from the account menu. \n \n You can click on any component to see what it does. \n \n Good luck!",
     ];
 
     index = 0;
