@@ -18,7 +18,8 @@ export class Message extends Element {
     value = 0;
 
     constructor(origin) {
-        super("Message", 0, 0, -1, -1, false, false);
+        super("Message", 0, 0, -1, -1, false, false, true);
+        Element.messages.push(this);
         this.type += ".Message";
 
         this.timeNow = Date.now();

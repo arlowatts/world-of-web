@@ -67,35 +67,35 @@ function render(now) {
 
     // draw other Elements
     for (let i = 0; i < Element.elements.length; i++) {
-        if (Element.elements[i].show && Element.elements[i].type !== "Element.Route" && Element.elements[i].type !== "Element.Message" && Element.elements[i].type !== "Element.Pane" && Element.elements[i].type !== "Element.Upgrade") {
+        if (Element.elements[i].show && Element.elements[i].type !== "Element.Pane" && Element.elements[i].type !== "Element.Upgrade") {
             Element.elements[i].draw(ctx, Styles);
         }
     }
 
     // draw Routes
-    for (let i = 0; i < Element.elements.length; i++) {
-        if (Element.elements[i].show && Element.elements[i].type === "Element.Route") {
-            Element.elements[i].draw(ctx, Styles);
+    for (let i = 0; i < Element.routes.length; i++) {
+        if (Element.routes[i].show) {
+            Element.routes[i].draw(ctx, Styles);
         }
     }
 
     // draw Messages
-    for (let i = 0; i < Element.elements.length; i++) {
-        if (Element.elements[i].show && Element.elements[i].type === "Element.Message") {
-            Element.elements[i].draw(ctx, Styles);
+    for (let i = 0; i < Element.messages.length; i++) {
+        if (Element.messages[i].show) {
+            Element.messages[i].draw(ctx, Styles);
         }
     }
 
     // draw the Pane, if it exists
     if (Element.currentPane) {
         Element.currentPane.draw(ctx, Styles);
-    }
 
     // draw the upgrades
-    for (let i = 0; i < Element.elements.length; i++) {
-        if (Element.elements[i].show && Element.elements[i].type === "Element.Upgrade") {
-            Element.elements[i].draw(ctx, Styles);
+    for (let i = 0; i < Element.currentPane.upgrades.length; i++) {
+        if (Element.currentPane.upgrades[i].show) {
+            Element.currentPane.upgrades[i].draw(ctx, Styles);
         }
+    }
     }
 
     // request the next animation frame

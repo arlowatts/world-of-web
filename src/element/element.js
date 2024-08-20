@@ -5,6 +5,8 @@ const TIME_SMOOTHING = 0.5;
 
 export class Element {
     static elements = [];
+    static routes = [];
+    static messages = [];
     static movingElement = null;
     static currentPane = null;
     static account = null;
@@ -35,8 +37,10 @@ export class Element {
     metricsMeta = {};
     upgrades = [];
 
-    constructor(name, x, y, width, height, moveable, hasPane) {
-        Element.elements.push(this);
+    constructor(name, x, y, width, height, moveable, hasPane, excludeFromList) {
+        if (!excludeFromList) {
+            Element.elements.push(this);
+        }
 
         this.name = name;
         this.x = x;
