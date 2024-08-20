@@ -13,9 +13,13 @@ export class Pane extends Element {
     static x = window.innerWidth - PANE_WIDTH - PADDING;
     static y = PADDING;
 
+    parentElement = null;
+
     constructor(parentElement) {
         super(parentElement.name, Pane.x, Pane.y, PANE_WIDTH, PANE_HEIGHT, true, false);
         this.type += ".Pane";
+
+        this.parentElement = parentElement;
 
         this.metrics = parentElement.metrics;
         this.metricsMeta = parentElement.metricsMeta;
@@ -36,6 +40,18 @@ export class Pane extends Element {
         }
 
         ctx.save();
+
+        if (this.parentElement.description) {
+            Styles.paragraph(ctx);
+
+            let lines = [""];
+            let descentPerLine = Pane.wrapText(ctx, this.parentElement.description, this.width - 2 * PADDING, lines, 0);
+
+            for (let i = 0; i < lines.length; i++) {
+                ctx.fillText(lines[i], this.x + PADDING, textY);
+                textY += descentPerLine;
+            }
+        }
 
         Styles.paragraph(ctx);
 
@@ -113,4 +129,24 @@ export class Pane extends Element {
     }
 
     updateMetrics() {}
+
+    static wrapText(ctx, text, width, lines, currentLine) {
+        let y = 1.5 * Number(ctx.font.match(/\d+/g)[0]);
+
+        let words = text.split(" ");
+
+        for (let i = 0; i < words.length; i++) {
+            let textMetrics = ctx.measureText(lines[currentLine] + " " + words[i]);
+
+            if (textMetrics.width <= width) {
+                lines[currentLine] += " " + words[i];
+            }
+            else {
+                lines.push(words[i]);
+                currentLine++;
+            }
+        }
+
+        return y;
+    }
 }

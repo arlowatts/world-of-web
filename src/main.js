@@ -6,6 +6,7 @@ import { Server } from "./element/server.js";
 import { Source } from "./element/source.js";
 import { Handle } from "./element/handle.js";
 import { Route } from "./element/route.js";
+import { Tutorial } from "./element/tutorial.js";
 
 // set the standard Pane class
 Element.Pane = Pane;
@@ -17,7 +18,8 @@ canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 
 // create the initial elements
-new Account("My Account", 20, 20, 500000000);
+new Account("My Account", 85, 20, 50);
+new Tutorial(20, 20);
 new Server("My Server", 300, 200);
 
 let sourceOutput = new Source("Users", 100, 200, 1 / 800).output;

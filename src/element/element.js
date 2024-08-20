@@ -16,6 +16,7 @@ export class Element {
 
     type = "Element";
     name = "";
+    description = null;
 
     x = 0;
     y = 0;

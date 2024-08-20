@@ -10,6 +10,8 @@ export class Upgrade extends Element {
     costFunction = null;
     upgradeFunction = null;
 
+    showCost = true;
+
     constructor(name, parentElement, level, costFunction, upgradeFunction) {
         super(name, 0, 0, -1, UPGRADE_HEIGHT, false, false);
         this.type += ".Upgrade";
@@ -44,7 +46,11 @@ export class Upgrade extends Element {
     draw(ctx, Styles) {
         ctx.save();
 
-        let displayText = this.name + " $" + Math.round(this.cost() * 100) / 100;
+        let displayText = this.name;
+
+        if (this.showCost) {
+            displayText += " $" + Math.round(this.cost() * 100) / 100;
+        }
 
         // measure text to set the width
         Styles.paragraph(ctx);

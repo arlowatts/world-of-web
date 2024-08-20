@@ -6,6 +6,7 @@ import { LoadBalancer } from "./loadBalancer.js";
 import { Firewall } from "./firewall.js";
 
 const PADDING = 10;
+const ACCOUNT_HEIGHT = 45;
 
 export class Account extends Element {
     metrics = {
@@ -13,7 +14,7 @@ export class Account extends Element {
     };
 
     constructor(name, x, y, amount) {
-        super(name, x, y, 0, 0, false, true);
+        super(name, x, y, 0, ACCOUNT_HEIGHT, false, true);
         this.type += ".Account";
 
         this.metrics.amount[0] = amount;
@@ -56,7 +57,6 @@ export class Account extends Element {
         // determine the width and height of the box
         let textMetrics = ctx.measureText(displayText);
         this.width = textMetrics.width + PADDING * 2;
-        this.height = textMetrics.actualBoundingBoxDescent - textMetrics.actualBoundingBoxAscent + PADDING * 2;
 
         // draw the box
         Styles.box(ctx);
