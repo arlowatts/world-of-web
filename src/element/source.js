@@ -11,9 +11,16 @@ const TIME_SMOOTHING = 0.5;
 
 export class Source extends Element {
     metrics = {
-        message_rate: [0],
         messages_failed: [0],
+        message_rate: [0],
+        message_value: [0],
         message_time: [0],
+    };
+
+    metricsMeta = {
+        messages_failed: {
+            noPlot: true,
+        },
     };
 
     minMessageRate = 0;
@@ -58,6 +65,7 @@ export class Source extends Element {
 
         if (message.success) {
             Element.account.add(message.value / message.time);
+            Element.smooth(this.metrics.message_value, message.value / message.time);
 
             if (message.value / message.time < this.metrics.message_rate[0] * 50) {
                 this.metrics.message_rate[0] = Math.max(this.minMessageRate, this.metrics.message_rate[0] - 1 / 10000);
@@ -69,12 +77,6 @@ export class Source extends Element {
         }
 
         message.deleted = true;
-    }
-
-    updateMetrics() {
-        super.updateMetrics();
-
-        this.metrics.messages_failed[0] = 0;
     }
 
     draw(ctx, Styles) {
