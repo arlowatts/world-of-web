@@ -12,10 +12,14 @@ export class Database extends Server {
     cpuPerMessage = 10;
     memoryPerMessage = 20;
 
+    static databaseAudio = new Audio("database.wav");
+
     constructor(name, x, y) {
         super(name, x, y);
         this.type += ".Database";
 
         this.metrics.processing_time[0] = this.delay;
+
+        this.audio = Database.databaseAudio;
     }
 }

@@ -39,6 +39,9 @@ export class Server extends Element {
     outputs = [];
     inputs = [];
 
+    static serverAudio = new Audio("server.wav");
+    audio = null;
+
     constructor(name, x, y) {
         super(name, x, y, SERVER_WIDTH, SERVER_HEIGHT, true, true);
         this.type += ".Server";
@@ -48,6 +51,8 @@ export class Server extends Element {
 
         this.endpoints.push(...this.outputs);
         this.endpoints.push(...this.inputs);
+
+        this.audio = Server.serverAudio;
 
         new Upgrade("Upgrade processing time", this, 1, (level) => 50 * level, (level) => {
             this.delay = Math.max(this.delay * 0.9, this.minDelay);
@@ -72,6 +77,8 @@ export class Server extends Element {
     }
 
     addMessage(message) {
+        this.audio.play();
+
         if (!this.healthy) {
             message.fail();
             return;

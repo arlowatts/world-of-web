@@ -51,7 +51,7 @@ export class Message extends Element {
                 ctx.restore();
             }
             else {
-                this.fail();
+                this.deleted = true;
             }
         }
     }

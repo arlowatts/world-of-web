@@ -39,6 +39,10 @@ export class Source extends Element {
     output = null;
     input = null;
 
+    static newMessageAudio = new Audio("newMessage.wav");
+    static messageSuccessAudio = new Audio("messageSuccess.wav");
+    static messageFailAudio = new Audio("messageFail.wav");
+
     constructor(name, x, y, rate) {
         super(name, x, y, SOURCE_WIDTH, SOURCE_HEIGHT, true, true);
         this.type += ".Source";
@@ -61,6 +65,8 @@ export class Source extends Element {
 
     // create a new message and send it to the output endpoint
     createMessage() {
+        Source.newMessageAudio.play();
+
         if (this.output) {
             this.output.addMessage(new Message(this, this.metrics.message_rate[0] * 500));
         }
@@ -81,10 +87,13 @@ export class Source extends Element {
             if (message.value / message.time < Math.min(message.expectedValue, this.metrics.message_rate[0] * 500)) {
                 this.metrics.message_rate[0] = Math.max(this.minMessageRate, this.metrics.message_rate[0] - 1 / 10000);
             }
+
+            Source.messageSuccessAudio.play();
         }
         else {
             this.metrics.message_rate[0] = Math.max(this.minMessageRate, this.metrics.message_rate[0] - 1 / 10000);
             this.metrics.messages_failed[0]++;
+            Source.messageFailAudio.play();
         }
 
         message.deleted = true;
