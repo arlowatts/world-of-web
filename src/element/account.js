@@ -1,4 +1,8 @@
 import { Element } from "./element.js";
+import { Upgrade } from "./upgrade.js";
+import { Server } from "./server.js";
+
+const PADDING = 10;
 
 export class Account extends Element {
     metrics = {
@@ -17,6 +21,8 @@ export class Account extends Element {
         }
 
         Element.account = this;
+
+        new Upgrade("Buy New Server", this, 0, (level) => 200, (level) => new Server("My Server", 100, 100));
     }
 
     add(amount) {
@@ -43,8 +49,8 @@ export class Account extends Element {
 
         // determine the width and height of the box
         let textMetrics = ctx.measureText(displayText);
-        this.width = textMetrics.width;
-        this.height = textMetrics.actualBoundingBoxDescent - textMetrics.actualBoundingBoxAscent;
+        this.width = textMetrics.width + PADDING * 2;
+        this.height = textMetrics.actualBoundingBoxDescent - textMetrics.actualBoundingBoxAscent + PADDING * 2;
 
         // draw the box
         Styles.box(ctx);
@@ -54,7 +60,7 @@ export class Account extends Element {
 
         // render the text
         Styles.title(ctx);
-        ctx.fillText(displayText, this.x, this.y);
+        ctx.fillText(displayText, this.x + PADDING, this.y + PADDING);
 
         ctx.restore();
     }
