@@ -67,6 +67,40 @@ function render(now) {
         }
     }
 
+    // remove moved or deleted routes
+    for (let i = 0; i < Element.routes.length; i++) {
+        if (Element.routes[i].deleted) {
+            Element.routes[i].remove();
+            Element.routes.splice(i, 1);
+            i--;
+            continue;
+        }
+
+        if (Element.routes[i].moved.length > 0) {
+            Element.routes[i].moved.shift();
+            Element.routes.splice(i, 1);
+            i--;
+            continue;
+        }
+    }
+
+    // remove moved or deleted message
+    for (let i = 0; i < Element.messages.length; i++) {
+        if (Element.messages[i].deleted) {
+            Element.messages[i].remove();
+            Element.messages.splice(i, 1);
+            i--;
+            continue;
+        }
+
+        if (Element.messages[i].moved.length > 0) {
+            Element.messages[i].moved.shift();
+            Element.messages.splice(i, 1);
+            i--;
+            continue;
+        }
+    }
+
     // draw other Elements
     for (let i = 0; i < Element.elements.length; i++) {
         if (Element.elements[i].show && Element.elements[i].type !== "Element.Pane" && Element.elements[i].type !== "Element.Upgrade") {
