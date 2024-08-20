@@ -6,6 +6,7 @@ import { Server } from "./server.js";
 
 export class LoadBalancer extends Server {
     delay = 100;
+    minDelay = 50;
     cpuPerMessage = 3;
     memoryPerMessage = 1;
 

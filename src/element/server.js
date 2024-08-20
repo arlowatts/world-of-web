@@ -8,6 +8,7 @@ const SERVER_HEIGHT = 75;
 
 export class Server extends Element {
     delay = 1200;
+    minDelay = 400;
     cpuPerMessage = 40;
     memoryPerMessage = 25;
 
@@ -43,7 +44,7 @@ export class Server extends Element {
         this.endpoints.push(...this.inputs);
 
         new Upgrade("Upgrade processing time", this, 1, (level) => 50 * level, (level) => {
-            this.delay *= 0.9;
+            this.delay = Math.max(this.delay * 0.9, this.minDelay);
             this.metrics.processing_time[0] = this.delay;
         });
 

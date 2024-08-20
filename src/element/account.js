@@ -3,6 +3,7 @@ import { Upgrade } from "./upgrade.js";
 import { Server } from "./server.js";
 import { Database } from "./database.js";
 import { LoadBalancer } from "./loadBalancer.js";
+import { Firewall } from "./firewall.js";
 
 const PADDING = 10;
 
@@ -24,9 +25,10 @@ export class Account extends Element {
 
         Element.account = this;
 
-        new Upgrade("Buy New Server", this, 0, (level) => 200, (level) => new Server("My Server", 100, 100));
-        new Upgrade("Buy New Database", this, 1, (level) => 150 * level, (level) => new Database("My Database", 100, 100));
-        new Upgrade("Buy New Load Balancer", this, 0, (level) => 50, (level) => new LoadBalancer("My Load Balancer", 100, 100));
+        new Upgrade("Server", this, 0, (level) => 200, (level) => new Server("My Server", 100, 100));
+        new Upgrade("Database", this, 1, (level) => 150 * level, (level) => new Database("My Database", 100, 100));
+        new Upgrade("Load Balancer", this, 0, (level) => 50, (level) => new LoadBalancer("My Load Balancer", 100, 100));
+        new Upgrade("Firewall", this, 0, (level) => 25, (level) => new Firewall("My Firewall", 100, 100));
     }
 
     add(amount) {

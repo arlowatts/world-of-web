@@ -51,15 +51,15 @@ export class Message extends Element {
     set(element) {
         if (this.parentElement.type === "Element.Server") {
             this.serverCount++;
-            this.value += 1000 / this.serverCount;
+            this.value += 1500;
+            this.value += 100 * this.firewallCount;
         }
         else if (this.parentElement.type === "Element.Server.Database") {
             this.databaseCount++;
-            this.value += 2500 * this.serverCount / this.databaseCount;
+            this.value += 1500 * this.serverCount;
         }
         else if (this.parentElement.type === "Element.Server.Firewall") {
             this.firewallCount++;
-            this.value += 1000 / this.firewallCount ** 2;
         }
 
         this.parentElement = element;
