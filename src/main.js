@@ -21,7 +21,6 @@ const ctx = canvas.getContext("2d");
 // create the initial elements
 new Account("My Account", 85, 20, 50);
 let tutorial = new Tutorial(20, 20);
-new Button("Clear All Routes", 20, 85, 45);
 new Server(null, 200, 300);
 
 let sourceOutput = new Source("Internet", 100, 200, 1 / 800).output;
