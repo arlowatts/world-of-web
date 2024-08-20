@@ -58,6 +58,10 @@ export class Source extends Element {
 
         if (message.success) {
             Element.account.add(message.value / message.time);
+
+            if (message.value / message.time < this.metrics.message_rate[0] * 50) {
+                this.metrics.message_rate[0] = Math.max(this.minMessageRate, this.metrics.message_rate[0] - 1 / 10000);
+            }
         }
         else {
             this.metrics.message_rate[0] = Math.max(this.minMessageRate, this.metrics.message_rate[0] - 1 / 10000);
