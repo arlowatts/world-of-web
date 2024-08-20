@@ -12,15 +12,11 @@ export class Button extends Element {
             if (route.endpointA.type === "Element.Handle") {
                 route.endpointA.deleted = true;
             }
-            else {
-                route.endpointA.route = null;
-            }
+            route.endpointA.route = null;
             if (route.endpointB.type === "Element.Handle") {
                 route.endpointB.deleted = true;
             }
-            else {
-                route.endpointA.route = null;
-            }
+            route.endpointB.route = null;
             route.deleted = true;
         });
     }

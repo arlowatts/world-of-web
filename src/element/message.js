@@ -33,7 +33,7 @@ export class Message extends Element {
     }
 
     draw(ctx, Styles) {
-        if (this.parentElement.type === "Element.Route") {
+        if (this.parentElement.type === "Element.Route" && !this.parentElement.deleted) {
             let pointOnRoute = this.parentElement.getPointOnRoute((Date.now() - this.timeNow) / Route.delay);
 
             if (pointOnRoute) {
