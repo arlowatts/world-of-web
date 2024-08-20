@@ -4,6 +4,8 @@ import { Account } from "./element/account.js";
 import { Pane } from "./element/pane.js";
 import { Server } from "./element/server.js";
 import { Source } from "./element/source.js";
+import { Handle } from "./element/handle.js";
+import { Route } from "./element/route.js";
 
 // set the standard Pane class
 Element.Pane = Pane;
@@ -17,7 +19,12 @@ const ctx = canvas.getContext("2d");
 // create the initial elements
 new Account("My Account", 20, 20, 50);
 new Server("My Server", 300, 200);
-new Source("Users", 100, 200, 1 / 800);
+
+let sourceOutput = new Source("Users", 100, 200, 1 / 800).output;
+sourceOutput.mouseDown({ x: sourceOutput.x + 1, y: sourceOutput.y + 1 });
+Element.movingElement.x = 150;
+Element.movingElement.y = 350;
+Element.movingElement = null;
 
 // store the position of the last mouseDown event
 let mouseDownPoint = {
