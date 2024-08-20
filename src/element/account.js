@@ -1,6 +1,7 @@
 import { Element } from "./element.js";
 import { Upgrade } from "./upgrade.js";
 import { Server } from "./server.js";
+import { Database } from "./database.js";
 
 const PADDING = 10;
 
@@ -23,6 +24,7 @@ export class Account extends Element {
         Element.account = this;
 
         new Upgrade("Buy New Server", this, 0, (level) => 200, (level) => new Server("My Server", 100, 100));
+        new Upgrade("Buy New Database", this, 1, (level) => 150 * level, (level) => new Database("My Database", 100, 100));
     }
 
     add(amount) {

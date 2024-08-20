@@ -59,7 +59,7 @@ export class Message extends Element {
         }
         else if (this.parentElement.type === "Element.Server.Firewall") {
             this.firewallCount++;
-            this.value += 1000 / this.firewallCount ** 2;
+            this.value += 1000 * this.databaseCount / this.firewallCount ** 2;
         }
 
         this.parentElement = element;
