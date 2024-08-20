@@ -37,7 +37,7 @@ export class Styles {
 
     static message(ctx, value) {
         ctx.fillStyle = `rgb(${value * 200 + 56} ${value * 100 + 28} ${value * 200 + 56})`;
-        ctx.strokeStyle = `rgb(${value * 200 + 56} ${value * 100 + 28} ${value * 200 + 56})`;
+        ctx.strokeStyle = `rgb(${value * 100 + 156} ${value * 50 + 78} ${value * 100 + 156})`;
         ctx.lineWidth = 2;
     }
 

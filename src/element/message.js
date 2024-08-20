@@ -41,6 +41,7 @@ export class Message extends Element {
                 ctx.arc(pointOnRoute.x, pointOnRoute.y, MESSAGE_RADIUS, 0, 2 * Math.PI);
 
                 ctx.fill();
+                ctx.stroke();
 
                 ctx.restore();
             }
