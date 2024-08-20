@@ -29,17 +29,17 @@ export class Server extends Element {
         },
     };
 
-    output = null;
+    outputs = [];
     inputs = [];
 
     constructor(name, x, y) {
         super(name, x, y, SERVER_WIDTH, SERVER_HEIGHT, true, true);
         this.type += ".Server";
 
-        this.output = new Output(this.width * 0.65, this.height, this);
+        this.outputs.push(new Output(this.width * 0.65, this.height, this));
         this.inputs.push(new Input(this.width * 0.35, this.height, this));
 
-        this.endpoints.push(this.output);
+        this.endpoints.push(...this.outputs);
         this.endpoints.push(...this.inputs);
 
         new Upgrade("Upgrade processing time", this, 1, (level) => 50 * level, (level) => {
@@ -56,7 +56,7 @@ export class Server extends Element {
         });
 
         new Upgrade("Upgrade memory", this, 1, (level) => 50, (level) => {
-            this.memoryPerMessage = 50 / (level + 2);
+            this.memoryPerMessage *= (level + 1) / (level + 2);
 
             for (let i = 0; i < this.metrics.memory.length; i++) {
                 this.metrics.memory[i] *= (level + 1) / (level + 2);
@@ -84,8 +84,16 @@ export class Server extends Element {
         message.timeNow = Date.now();
 
         setTimeout(() => {
-            if (this.output) {
-                this.output.addMessage(message);
+            let outputsWithRoutes = [];
+
+            this.outputs.forEach((output) => {
+                if (output.route) {
+                    outputsWithRoutes.push(output);
+                }
+            });
+
+            if (outputsWithRoutes.length > 0) {
+                outputsWithRoutes[Math.floor(Math.random() * outputsWithRoutes.length)].addMessage(message);
             }
             else {
                 message.fail();

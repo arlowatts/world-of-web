@@ -17,7 +17,7 @@ canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 
 // create the initial elements
-new Account("My Account", 20, 20, 50);
+new Account("My Account", 20, 20, 500000000);
 new Server("My Server", 300, 200);
 
 let sourceOutput = new Source("Users", 100, 200, 1 / 800).output;
