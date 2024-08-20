@@ -18,7 +18,6 @@ export class Route extends Element {
         let previousElement = message.parentElement;
         message.set(this);
 
-        message.time += Route.delay;
         message.timeNow = Date.now();
 
         setTimeout(() => {

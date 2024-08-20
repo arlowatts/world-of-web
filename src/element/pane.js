@@ -74,7 +74,7 @@ export class Pane extends Element {
 
         // plot the data
         Styles.paragraph(ctx);
-        if (this.metricsMeta[key] && this.metricsMeta[key].healthyLimit && max > this.metricsMeta[key].healthyLimit) {
+        if (this.metricsMeta[key] && this.metricsMeta[key].healthyLimit && max >= this.metricsMeta[key].healthyLimit) {
             Styles.modifyRed(ctx);
         }
 

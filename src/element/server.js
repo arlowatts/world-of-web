@@ -43,7 +43,7 @@ export class Server extends Element {
         this.endpoints.push(...this.inputs);
 
         new Upgrade("Upgrade processing time", this, 1, (level) => 50 * level, (level) => {
-            this.delay *= 0.75;
+            this.delay *= 0.9;
             this.metrics.processing_time[0] = this.delay;
         });
 

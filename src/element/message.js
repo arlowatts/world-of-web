@@ -4,7 +4,7 @@ import { Route } from "./route.js";
 const MESSAGE_RADIUS = 8;
 
 export class Message extends Element {
-    time = 0;
+    time = 1;
     timeNow = 0;
 
     origin = null;
