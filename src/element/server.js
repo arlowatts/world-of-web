@@ -42,9 +42,26 @@ export class Server extends Element {
         this.endpoints.push(this.output);
         this.endpoints.push(...this.inputs);
 
-        new Upgrade("Upgrade processing time", this, 1, (level) => 50 * level, (level) => { this.delay *= 0.75; this.metrics.processing_time[0] = this.delay; });
-        new Upgrade("Upgrade CPU", this, 0, (level) => 25 * 2 ** level, (level) => { this.cpuPerMessage *= 0.75; this.metrics.cpu[0] *= 0.75; });
-        new Upgrade("Upgrade memory", this, 1, (level) => 50, (level) => { this.memoryPerMessage = 50 / (level + 2); this.metrics.memory[0] *= (level + 1) / (level + 2); });
+        new Upgrade("Upgrade processing time", this, 1, (level) => 50 * level, (level) => {
+            this.delay *= 0.75;
+            this.metrics.processing_time[0] = this.delay;
+        });
+
+        new Upgrade("Upgrade CPU", this, 0, (level) => 25 * 2 ** level, (level) => {
+            this.cpuPerMessage *= 0.75;
+            
+            for (let i = 0; i < this.metrics.cpu.length; i++) {
+                this.metrics.cpu[i] *= 0.75;
+            }
+        });
+
+        new Upgrade("Upgrade memory", this, 1, (level) => 50, (level) => {
+            this.memoryPerMessage = 50 / (level + 2);
+
+            for (let i = 0; i < this.metrics.memory.length; i++) {
+                this.metrics.memory[i] *= (level + 1) / (level + 2);
+            }
+        });
     }
 
     addMessage(message) {
